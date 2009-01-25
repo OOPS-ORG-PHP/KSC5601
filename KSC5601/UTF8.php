@@ -29,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UTF8.php,v 1.1.1.1 2008-09-29 14:41:17 oops Exp $
+ * $Id: UTF8.php,v 1.2 2009-01-25 09:13:04 oops Exp $
  */
 
 Require_once 'KSC5601/Stream.php';
@@ -73,6 +73,13 @@ class KSC5601_UTF8 extends KSC5601_UCS4
 			$byte = strlen (preg_replace ('/^([1]+).*/', '\\1', $first));
 
 			if ( $byte > 6 )
+				continue;
+
+			/*
+			 * 2 byte UTF-8 check is skip, because some hangle is over wrapping 2byte utf-8
+			 * For example, hangul 'Á¤' have 11000001 10100100
+			 */
+			if ( $byte < 3 )
 				continue;
 
 			/*
