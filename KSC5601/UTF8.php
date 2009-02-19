@@ -29,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UTF8.php,v 1.2 2009-01-25 09:13:04 oops Exp $
+ * $Id: UTF8.php,v 1.3 2009-02-19 15:01:05 oops Exp $
  */
 
 Require_once 'KSC5601/Stream.php';
@@ -55,7 +55,9 @@ class KSC5601_UTF8 extends KSC5601_UCS4
 	 * whether utf8 or not given strings
 	 */
 	function is_utf8 ($s) {
-		$s = $this->rm_utf8bom ($s);
+		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
+			return 1;
+
 		$l = strlen ($s);
 
 		for ( $i=0; $i<$l; $i++ ) {
