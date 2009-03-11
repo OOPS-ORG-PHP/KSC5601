@@ -11,8 +11,19 @@ function pr ($title, $msg) {
 
 $time1 = microtime ();
 
-header('Content-Type: text/html');
-echo "<pre>";
+$cli = ( php_sapi_name () == 'cli' ) ? true : false;
+$test = false;
+
+if ( $cli !== true ) {
+	header('Content-Type: text/html');
+	echo "<pre>";
+}
+
+if ( $test === true ) {
+	$path = ini_get ('include_path');
+	$path .= ':..';
+	ini_set ('include_path', $path);
+}
 
 require_once 'KSC5601.php';
 
