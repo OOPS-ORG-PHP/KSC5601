@@ -53,16 +53,16 @@ $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
 $t1 = microtime ();
-$ucs = $obj->toucs4 ($ksc);
+$ucs = $obj->toucs2 ($ksc);
 
-pr ('UCS4', $ucs);
+pr ('UCS2', $ucs);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
 $t1 = microtime ();
-$ducs = $obj->todeucs4 ($ucs);
+$ducs = $obj->todeucs2 ($ucs);
 
-pr ('DUCS4', $ducs);
+pr ('DUCS2', $ducs);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 

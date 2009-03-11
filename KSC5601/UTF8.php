@@ -29,13 +29,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UTF8.php,v 1.3 2009-02-19 15:01:05 oops Exp $
+ * $Id: UTF8.php,v 1.4 2009-03-11 17:24:42 oops Exp $
  */
 
 Require_once 'KSC5601/Stream.php';
-require_once 'KSC5601/UCS4.php';
+require_once 'KSC5601/UCS2.php';
 
-class KSC5601_UTF8 extends KSC5601_UCS4
+class KSC5601_UTF8 extends KSC5601_UCS2
 {
 	private $debug = false;
 	public $iconv = true;
@@ -123,18 +123,18 @@ class KSC5601_UTF8 extends KSC5601_UCS4
 			if ( ord ($s[$i]) & 0x80 ) {
 				$c1 = $s[$i];
 				$c2 = $s[$i+1];
-				$ucs4 = $this->ksc2ucs ($c1, $c2);
+				$ucs2 = $this->ksc2ucs ($c1, $c2);
 
-				if ( $ucs4 == '?' ) {
-					$r .= $ucs4;
+				if ( $ucs2 == '?' ) {
+					$r .= $ucs2;
 					$i++;
 					continue;
 				}
 
-				$uni[0] = $this->decbin ($ucs4 >> 12);
-				$uni[1] = $this->decbin ($ucs4 >> 8 & 0x0f);
-				$uni[2] = $this->decbin ($ucs4 >> 4 & 0x00f);
-				$uni[3] = $this->decbin ($ucs4 & 0x000f);
+				$uni[0] = $this->decbin ($ucs2 >> 12);
+				$uni[1] = $this->decbin ($ucs2 >> 8 & 0x0f);
+				$uni[2] = $this->decbin ($ucs2 >> 4 & 0x00f);
+				$uni[3] = $this->decbin ($ucs2 & 0x000f);
 
 				$uc1 = bindec ('1110' . $uni[0]);
 				$uc2 = bindec ('10' . $uni[1] . substr ($uni[2], 0, 2));
@@ -166,7 +166,7 @@ class KSC5601_UTF8 extends KSC5601_UCS4
 
 				# 0x03 -> 00000011
 				# 0x30 -> 00110000
-				$ucs4 = dechex ($uni1 & 0x0f) .
+				$ucs2 = dechex ($uni1 & 0x0f) .
 						dechex ($uni2 >> 2 & 0x0f) .
 						dechex ((($uni2 & 0x03) <<2) | (($uni3 & 0x30) >> 4)) .
 						dechex ($uni3 & 0x0f);
@@ -174,14 +174,14 @@ class KSC5601_UTF8 extends KSC5601_UCS4
 				if ( $this->debug ) {
 					#     ucs0     ucs1  ucs2       ucs3
 					#1111(1111).11(1111)(11).11(11)(1111)
-					echo 'HEX STR => ' . $ucs4 . "\n";
-					echo '0 => ' . $ucs4[0] . ' ' . decbin (hexdec ($ucs4[0])) . "\n";
-					echo '1 => ' . $ucs4[1] . ' ' . decbin (hexdec ($ucs4[1])) . "\n";
-					echo '2 => ' . $ucs4[2] . ' ' . decbin (hexdec ($ucs4[2])) . "\n";
-					echo '3 => ' . $ucs4[3] . ' ' . decbin (hexdec ($ucs4[3])) . "\n";
+					echo 'HEX STR => ' . $ucs2 . "\n";
+					echo '0 => ' . $ucs2[0] . ' ' . decbin (hexdec ($ucs2[0])) . "\n";
+					echo '1 => ' . $ucs2[1] . ' ' . decbin (hexdec ($ucs2[1])) . "\n";
+					echo '2 => ' . $ucs2[2] . ' ' . decbin (hexdec ($ucs2[2])) . "\n";
+					echo '3 => ' . $ucs2[3] . ' ' . decbin (hexdec ($ucs2[3])) . "\n";
 				}
 
-				$r .= $this->ucs2ksc ($ucs4);
+				$r .= $this->ucs2ksc ($ucs2);
 
 				$i += 2;
 			} else

@@ -34,10 +34,10 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2008, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.1.1.1 2008-09-29 14:41:17 oops Exp $
+ * @version    CVS: $Id: KSC5601.php,v 1.2 2009-03-11 17:24:42 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear
  * @since      File available since Release 0.1
- * $Id: KSC5601.php,v 1.1.1.1 2008-09-29 14:41:17 oops Exp $
+ * $Id: KSC5601.php,v 1.2 2009-03-11 17:24:42 oops Exp $
  */
 
 require_once 'KSC5601/UTF8.php';
@@ -89,7 +89,7 @@ Class KSC5601
 		return $this->obj->utf8dec ($string);
 	}
 
-	function toucs4 ($string, $asc = false) {
+	function toucs2 ($string, $asc = false) {
 		$l = strlen ($string);
 
 		for ( $i=0; $i<$l; $i++ ) {
@@ -105,7 +105,7 @@ Class KSC5601
 		return $r;
 	}
 
-	function todeucs4 ($string) {
+	function todeucs2 ($string) {
 		$s = preg_replace ('/0x([a-z0-9]{2,4})/i', 'U+\\1', trim ($string));
 		$l = strlen ($s);
 

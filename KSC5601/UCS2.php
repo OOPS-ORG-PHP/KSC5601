@@ -29,12 +29,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UCS2.php,v 1.1.1.1 2008-09-29 14:41:17 oops Exp $
+ * $Id: UCS2.php,v 1.2 2009-03-11 17:24:42 oops Exp $
  */
 
 require_once 'KSC5601/Stream.php';
 
-Class KSC5601_UCS4 extends KSC5601_Stream
+Class KSC5601_UCS2 extends KSC5601_Stream
 {
 	public $ksc     = NULL;
 	public $hanja   = NULL;
@@ -164,7 +164,7 @@ Class KSC5601_UCS4 extends KSC5601_Stream
 
 		echo "<?\n" .
 			"/*\n" .
-			" * this array is made by KSC5601_UCS4::mk_revtable method\n" .
+			" * this array is made by KSC5601_UCS2::mk_revtable method\n" .
 			" */\n" .
 			"\$GLOBALS['table_ksc5601_rev'] = array (\n";
 

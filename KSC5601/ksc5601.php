@@ -2222,7 +2222,7 @@ $GLOBALS['table_ksc5601_hanja'] = array(
 0x7199, 0x71b9, 0x71ba, 0x72a7, 0x79a7, 0x7a00, 0x7fb2, 0x8a70);
 
 /*
- * this array is made by KSC4501_UCS4::mk_revtable method
+ * this array is made by KSC4501_UCS2::mk_revtable method
  */
 $GLOBALS['table_ksc5601_rev'] = array (
 44034 => 0x8141, 44035 => 0x8142, 44037 => 0x8143, 44038 => 0x8144, 44043 => 0x8145, 44044 => 0x8146, 44045 => 0x8147, 44046 => 0x8148,
