@@ -29,14 +29,46 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: Stream.php,v 1.1.1.1 2008-09-29 14:41:17 oops Exp $
+ * $Id: Stream.php,v 1.2 2009-03-15 16:56:02 oops Exp $
  */
 
 class KSC5601_Stream
 {
-	function chr2hex ($c, $prefix = true) {
+	function is_iconv () {
+		return ( extension_loaded ('iconv') && $this->iconv ) ? true : false;
+	}
+
+	function is_mbstring () {
+		return ( extension_loaded ('mbstring') && $this->mbstring ) ? true : false;
+	}
+
+	function is_extfunc () {
+		if ( $this->is_iconv () === true || $this->is_mbstring () === true )
+			return true;
+		return false;
+	}
+
+	function extfunc ($from, $to, $str) {
+		if ( $this->is_iconv () === true )
+			return iconv ($from, $to, $str);
+
+		if ( $this->is_mbstring () === true )
+			return mb_convert_encoding ($str, $to, $from);
+
+		return false;
+	}
+
+	function chr2hex ($c, $prefix = true, $dec = false) {
 		$prefix = $prefix ? '0x' : '';
-		return $prefix . dechex (ord ($c));
+		if ( $dec === true )
+			$r = ord ($c);
+		else {
+			$r = strtoupper (dechex (ord ($c)));
+			/* big endian */
+			if ( strlen ($r) < 2 )
+				$r = '0' . $r;
+		}
+		return $prefix . $r;
 	}
 
 	function hex2chr ($c) {

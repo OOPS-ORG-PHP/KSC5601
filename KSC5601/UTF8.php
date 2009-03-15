@@ -29,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UTF8.php,v 1.4 2009-03-11 17:24:42 oops Exp $
+ * $Id: UTF8.php,v 1.5 2009-03-15 16:56:02 oops Exp $
  */
 
 Require_once 'KSC5601/Stream.php';
@@ -111,11 +111,8 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 	}
 
 	function utf8enc ($s) {
-		if ( extension_loaded ('iconv') && $this->iconv )
-			return iconv ('euc-kr', 'utf8', $s);
-
-		if ( extension_loaded ('mbstring') && $this->mbstring )
-			return mb_convert_encoding ($s, 'utf8', 'euc-kr');
+		if ( ($r = $this->extfunc (UHC, UTF8, $s)) !== false ) 
+			return $r;
 
 		$len = strlen ($s);
 
@@ -150,10 +147,8 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 	}
 
 	function utf8dec ($s) {
-		if ( extension_loaded ('iconv') && $this->iconv )
-			return iconv ('utf8', 'euc-kr', $s);
-		if ( extension_loaded ('mbstring') && $this->mbstring )
-			return mb_convert_encoding ($s, 'euc-kr', 'utf8');
+		if ( ($r = $this->extfunc (UTF8, UHC, $s)) !== false ) 
+			return $r;
 
 		$s = $this->rm_utf8bom ($s);
 		$l = strlen ($s);

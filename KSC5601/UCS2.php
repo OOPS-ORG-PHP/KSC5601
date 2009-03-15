@@ -29,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UCS2.php,v 1.2 2009-03-11 17:24:42 oops Exp $
+ * $Id: UCS2.php,v 1.3 2009-03-15 16:56:02 oops Exp $
  */
 
 require_once 'KSC5601/Stream.php';
@@ -85,7 +85,7 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 	}
 
 	/*
-	 * KSC5601 -> USC4
+	 * KSC5601 -> UCS2
 	 * return decimical value or question mark '?'
 	 */
 	function ksc2ucs ($c1, $c2) {
@@ -125,7 +125,7 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 	}
 
 	/*
-	 * USC4 -> KSC5601
+	 * UCS4 -> KSC5601
 	 */
 	function ucs2ksc ($s) {
 		$this->init_ksc5601 ();
