@@ -42,11 +42,14 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.5 2009-03-16 16:48:53 oops Exp $
+ * @version    CVS: $Id: KSC5601.php,v 1.6 2009-03-16 17:15:17 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  * @since      File available since Release 0.1
  */
 
+/**
+ * PHP iconv/mbstring 확장 모듈 지원 여부를 확인 하기 위한 Check KSC5601_Common class
+ */
 require_once 'KSC5601/Common.php';
 
 /**#@+
@@ -86,10 +89,17 @@ global $chk;
 
 $chk = new KSC5601_Common;
 
-if ( $chk->is_extfunc () === true )
+if ( $chk->is_extfunc () === true ) {
+	/**
+	 * php iconv / mbstring 확장이 지원될 경우, iconv/mbsting API 를 이용하기 위한 KSC5601 class
+	 */
 	require_once 'KSC5601/KSC5601_ext.php';
-else
+} else {
+	/**
+	 * php iconv / mbstring 확장이 지원 되지 않을 경우, pure php API 를 이용하기 위한 KSC5601 class
+	 */
 	require_once 'KSC5601/KSC5601_pure.php';
+}
 
 
 /*

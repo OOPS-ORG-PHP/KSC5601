@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * KSC5601 UTF8 internal API for pure code
  *
  * @category   Charset
@@ -7,7 +7,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.7 2009-03-16 16:48:53 oops Exp $
+ * @version    CVS: $Id: UTF8.php,v 1.8 2009-03-16 17:15:17 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 

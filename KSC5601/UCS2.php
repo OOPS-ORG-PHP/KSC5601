@@ -1,5 +1,5 @@
 <?
-/*
+/**
  * KSC5601 패키지에서 USC2를 제어하기 위한 API Class
  *
  * @category   Charset
@@ -7,7 +7,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UCS2.php,v 1.5 2009-03-16 16:48:53 oops Exp $
+ * @version    CVS: $Id: UCS2.php,v 1.6 2009-03-16 17:15:17 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
