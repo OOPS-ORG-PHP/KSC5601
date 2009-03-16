@@ -1,6 +1,14 @@
 <?php
 /**
- * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
+ *
+ * KSC5601 / UTF8 문자셋 간의 변환 및 관리를 위한 기능을 제공
+ *
+ * KSC5601 pear package 는 UHC <-> UTF8 또는 UHC <-> UCS2 간의 문자셋
+ * 변환을 지원을 한다. 또한 NCR code 변환을 지원하여, 웹상에서 KSX1001
+ * 범위밖의 표현하지 못하는 한글 문자를 NCR code 로 출력이 가능하도록
+ * 지원을 한다.
+ *
+ * Copyright (c) 2009, JoungKyun.Kim <http://oops.org>
  * 
  * All rights reserved.
  *
@@ -29,27 +37,53 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   pear
- * @package    Character Set
+ * @category   Charset
+ * @package    KSC5601
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.4 2009-03-16 12:04:39 oops Exp $
- * @link       ftp://mirror.oops.org/pub/oops/php/pear
+ * @version    CVS: $Id: KSC5601.php,v 1.5 2009-03-16 16:48:53 oops Exp $
+ * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  * @since      File available since Release 0.1
- * $Id: KSC5601.php,v 1.4 2009-03-16 12:04:39 oops Exp $
  */
 
 require_once 'KSC5601/Common.php';
+
+/**#@+
+ * 지원하는 문자셋 상수
+ */
+/*
+ * Local charset string
+ */
 define ('LOC',    'loc');
+/**
+ * UTF8 charset string
+ */
 define ('UTF8',   'utf8');
+/**
+ * EUC-KR charset string
+ */
 define ('EUC-KR', 'euc-kr');
+/**
+ * CP949 Alias
+ */
 define ('UHC',    'cp949');
+/**
+ * CP949 charset string
+ */
 define ('CP949',  'cp949');
+/**
+ * UCS2 big endian charset string
+ */
 define ('UCS2',   'ucs-2be');
+/*
+ * Numeric Code Reference string
+ */
 define ('NCR',    'ncr');
+/**#@-*/
 
 global $chk;
+
 $chk = new KSC5601_Common;
 
 if ( $chk->is_extfunc () === true )

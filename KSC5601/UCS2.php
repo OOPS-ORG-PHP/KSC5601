@@ -1,39 +1,28 @@
 <?
 /*
- * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
- * 
- * All rights reserved.
+ * KSC5601 패키지에서 USC2를 제어하기 위한 API Class
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the authors nor the names of its contributors
- *       may be used to endorse or promote products derived from this software
- *       without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
- * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * $Id: UCS2.php,v 1.4 2009-03-16 12:04:39 oops Exp $
+ * @category   Charset
+ * @package    KSC5601_pure
+ * @author     JoungKyun.Kim <http://oops.org>
+ * @copyright  (c) 2009, JoungKyun.Kim
+ * @license    Like BSD License
+ * @version    CVS: $Id: UCS2.php,v 1.5 2009-03-16 16:48:53 oops Exp $
+ * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
 require_once 'KSC5601/Stream.php';
 
+/**
+ * KSC5601 패키지에서 USC2를 제어하기 위한 API Class
+ *
+ * @category   Charset
+ * @package    KSC5601_pure
+ * @author     JoungKyun.Kim <http://oops.org>
+ * @copyright  (c) 2009, JoungKyun.Kim
+ * @license    Like BSD License
+ * @version    Release:
+ */
 Class KSC5601_UCS2 extends KSC5601_Stream
 {
 	public $ksc     = NULL;
@@ -48,7 +37,14 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 	}
 
 	/*
-	 * init char table
+	 * KSC5601 코드 테이블을 초기화 한다.
+	 *
+	 * pure code 를 사용할 경우 필요한 KSC5601 code table 을 메모리에
+	 * 로딩한다. 만약 되어 있을 경우 skip을 한다.
+	 *
+	 * @access public 
+	 * @param void
+	 * @return void
 	 */
 	function init_ksc5601 () {
 		if ( $this->ksc != NULL ) {
@@ -83,9 +79,14 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		$this->rev_max = count ($this->revs);
 	}
 
-	/*
+	/**
 	 * KSC5601 -> UCS2
 	 * return decimical value or question mark '?'
+	 *
+	 * @access public
+	 * @param string $c1 1st byte binary 문자
+	 * @param string $c2 2st byte binary 문자
+	 * @return string 10진수 문자열 [42531]
 	 */
 	function ksc2ucs ($c1, $c2) {
 		$this->init_ksc5601 ();
@@ -125,6 +126,11 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 	/*
 	 * UCS2 -> KSC5601
+	 * 16진수 문자열을 2byte binary 문자로 변환
+	 *
+	 * @access public
+	 * @param string $s 16진수 문자열
+	 * @return string 2byte binary 문자
 	 */
 	function ucs2ksc ($s) {
 		$this->init_ksc5601 ();
@@ -158,6 +164,14 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		return chr ($k1) . chr ($k2);
 	}
 
+	/*
+	 * UCS2 -> KSC5601
+	 * 16진수 문자열을 2byte binary 문자로 변환
+	 *
+	 * @access public
+	 * @param void
+	 * @return string
+	 */
 	function mk_revTable () {
 		$this->init_ksc5601 ();
 

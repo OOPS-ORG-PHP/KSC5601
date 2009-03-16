@@ -1,49 +1,28 @@
 <?php
 /**
- * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
- * 
- * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ * KSC5601 를 pure php code 로 처리하기 위한 KSC5601 class
  *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the authors nor the names of its contributors
- *       may be used to endorse or promote products derived from this software
- *       without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
- * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @category   pear
- * @package    Character Set
- * @author     JoungKyun.Kim <http://oops.org>
- * @copyright  (c) 2009, JoungKyun.Kim
- * @license    Like BSD License
- * @version    CVS: $Id: KSC5601_pure.php,v 1.1 2009-03-16 12:04:39 oops Exp $
- * @link       ftp://mirror.oops.org/pub/oops/php/pear
- * @since      File available since Release 0.1
- * $Id: KSC5601_pure.php,v 1.1 2009-03-16 12:04:39 oops Exp $
+ * @category    Charset
+ * @package     KSC5601_pure
+ * @author      JoungKyun.Kim <http://oops.org>
+ * @copyright   2009 (c) JoungKyun.Kim
+ * @license     BSD License
+ * @version     $Id: KSC5601_pure.php,v 1.2 2009-03-16 16:48:53 oops Exp $
+ * @link        ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
 require_once 'KSC5601/UTF8.php';
 
 /**
- * Manipulation character set between KSC5601 and UTF-8
+ * KSC5601 과 UTF-8 간의 문자셋 변환 및 관리를 위한 기능 제공
+ *
+ * @category    Charset
+ * @package     KSC5601_pure
+ * @author      JoungKyun.Kim <http://oops.org>
+ * @copyright   2009 (c) JoungKyun.Kim
+ * @license     BSD License
+ * @version     Release:
  */
 Class KSC5601
 {
@@ -61,22 +40,42 @@ Class KSC5601
 			$obj->revs = $GLOBALS['table_ksc5601_rev'];
 	}
 
+    /**
+	 * KSX1001 범위 외의 한글을 처리
+	 * @access  public
+	 * @param   boolean $flag
+	 *  <ol>
+	 *      <li>true : UTF8 decode 시에 KSX1001 범위외의 한글을 NCR 처리 한다.</li>
+	 *      <li>true : NCR encode 시에 KSX1001 범위의 한글만 NCR 처리 한다.</li>
+	 *      <li>false : 아무일도 하지 않는다.</li>
+	 *  </ol>
+	 * @return  void
+	 */
 	function out_of_ksx1001 ($flag = false) {
 		$this->obj->out_ksx1001 = $flag;
 	}
 
-	/**
-	 * return boolean whether utf8 or not about given string
-	 *
-	 * @param   string  $string     check string
-	 * @return  boolean if 0, not uft8, and if 1, utf8
-	 * @static
+    /**
+	 * 주어진 문자열이 utf8 인지 체크
+	 * @param   string  $string     검사할 문자열
+	 * @return  boolean utf8 일 경우 true 를 반환
 	 * @access  public
 	 */
 	function is_utf8 ($string) {
 		return $this->obj->is_utf8 ($string);
 	}
 
+    /**
+	 * UHC <-> UTF8 문자셋 변환
+	 * @access  public
+	 * @param   string  $string 변환할 문자열
+	 *      지정이 되지 않으면 기본으로 UTF8 로 문자셋을 변환함.
+	 *      UTF8 이 아닐 경우 UHC(CP949) 로 변환 함. KSC5601::out_of_ksx1001
+	 *      이 true 이 경우, 디코딩 시에 KSX1001 범위 밖의 한글을 NCR 처리
+	 *      함. @see KSC5601::out_of_ksx1001
+	 * @param   string  $to     인코딩(UTF8)/디코딩(UHC) [기본: UTF8]
+	 * @return  string
+	 */
 	function utf8 ($string, $to = UTF8) {
 		if ( $to === UTF8 )
 			return $this->obj->utf8enc ($string);
@@ -84,6 +83,21 @@ Class KSC5601
 		return $this->obj->utf8dec ($string);
 	}
 
+    /**
+	 * UHC <-> UCS2 문자셋 변환
+	 * @access  public
+	 * @param   string  $string 변환할 문자열
+	 *  <p>
+	 *      지정이 되지 않으면 기본으로 UCS2 hexical 로 문자셋을 변환함.
+	 *      UCS2 가 아닐 경우 UCS2 hexical 을 UHC(CP949) 로 변환 함.
+	 *  </p>
+	 * @param   string  $to     인코딩(UCS2)/디코딩(UHC) [기본: UCS2]
+	 * @param   boolean $asc    true 경우, 모든 문자를 UCS2 hexical 로 변환
+	 *                          false 의 경우 KSX1001 범위 외의 한글만 UCS hexical 로 변환
+	 *                          디코드 시에는 사용하지 않음
+	 *                          기본값 false
+	 * @return  string
+	 */
 	function ucs2 ($string, $to = UCS2, $asc = false) {
 		if ( preg_match ('/ucs[-]?2(be|le)?/i', $to) ) {
 			/* to ucs2 */
@@ -138,6 +152,22 @@ Class KSC5601
 		return $r;
 	}
 
+    /**
+	 * UHC <-> NCR (Numeric Code Reference) 문자셋 변환
+	 * @access  public
+	 * @param   string  $string 변환할 문자열
+	 *  <p>
+	 *      지정이 되지 않으면 기본으로 NCR code 로 문자셋을 변환함.
+	 *      NCR 이 아닐 경우 NCR code 를 UHC(CP949) 로 변환 함.
+	 *  </p>
+	 * @param   string  $to     인코딩(NCR)/디코딩(UHC) [기본: NCR]
+	 * @param   boolean $enc    true 경우, 모든 문자를 NCR code 로 변환
+	 *                          false 의 경우 KSC5601::out_of_ksx1001 의 설정이 true 일 경우
+	 *                          KSX1001 범위 밖의 한글만 NCR 로 변환하며, false 의 경우 UHC
+	 *                          모든 영역을 NCR로 변환. 디코드 시에는 사용하지 않음
+	 *                          기본값 false
+	 * @return  string
+	 */
 	function ncr ($string, $to = NCR, $enc = false) {
 		if ( $to == NCR ) {
 			/* to ucs2 */
@@ -236,6 +266,12 @@ Class KSC5601
 		return $r;
 	}
 
+	/**
+	 * KSC5601 reverse table 생성을 위한 method
+	 *
+	 * @access public
+	 * @return string
+	 */
 	function make_reverse_table () {
 		$this->obj->mk_revTable ();
 	}
