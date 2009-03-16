@@ -29,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UTF8.php,v 1.5 2009-03-15 16:56:02 oops Exp $
+ * $Id: UTF8.php,v 1.6 2009-03-16 12:04:39 oops Exp $
  */
 
 Require_once 'KSC5601/Stream.php';
@@ -38,8 +38,6 @@ require_once 'KSC5601/UCS2.php';
 class KSC5601_UTF8 extends KSC5601_UCS2
 {
 	private $debug = false;
-	public $iconv = true;
-	public $mbstring = true;
 
 	/*
 	 * remove utf8 bom code (first 3byte)
@@ -56,7 +54,7 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 	 */
 	function is_utf8 ($s) {
 		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
-			return 1;
+			return true;
 
 		$l = strlen ($s);
 
@@ -65,11 +63,11 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 			if ( ! (ord ($s[$i]) & 0x80) )
 				continue;
 
-			$first = $this->chr2bin ($s[$i]);
+			$first = KSC5601_Stream::chr2bin ($s[$i]);
 
 			# first byte of utf8 is must start 11
 			if ( substr ($first, 0, 2) == '10' )
-				return 0;
+				return false;
 
 			# except 1st byte
 			$byte = strlen (preg_replace ('/^([1]+).*/', '\\1', $first));
@@ -94,26 +92,23 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 			for ( $j=1; $j<$byte; $j++ ) {
 				if ( $j == 1 ) {
 					$n = 8 - $byte;
-					if ( $this->chr2bin ($s[$i+1], ">>$n") != $this->check2byte ($byte) )
-						return 0;
+					if ( KSC5601_Stream::chr2bin ($s[$i+1], ">>$n") != KSC5601_Stream::check2byte ($byte) )
+						return false;
 
 					continue;
 				}
 
-				if ( $this->chr2bin ($str[$i+$j], '>>6') != 10 )
-					return 0;
+				if ( KSC5601_Stream::chr2bin ($s[$i+$j], '>>6') != 10 )
+					return false;
 			}
 
 			break;
 		}
 
-		return 1;
+		return true;
 	}
 
 	function utf8enc ($s) {
-		if ( ($r = $this->extfunc (UHC, UTF8, $s)) !== false ) 
-			return $r;
-
 		$len = strlen ($s);
 
 		for ( $i=0; $i<$len; $i++ ) {
@@ -147,9 +142,6 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 	}
 
 	function utf8dec ($s) {
-		if ( ($r = $this->extfunc (UTF8, UHC, $s)) !== false ) 
-			return $r;
-
 		$s = $this->rm_utf8bom ($s);
 		$l = strlen ($s);
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
  * 
  * All rights reserved.
@@ -29,34 +29,35 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   pear
- * @package    Character Set
- * @author     JoungKyun.Kim <http://oops.org>
- * @copyright  (c) 2009, JoungKyun.Kim
- * @license    Like BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.4 2009-03-16 12:04:39 oops Exp $
- * @link       ftp://mirror.oops.org/pub/oops/php/pear
- * @since      File available since Release 0.1
- * $Id: KSC5601.php,v 1.4 2009-03-16 12:04:39 oops Exp $
+ * $Id: Common.php,v 1.1 2009-03-16 12:04:39 oops Exp $
  */
 
-require_once 'KSC5601/Common.php';
-define ('LOC',    'loc');
-define ('UTF8',   'utf8');
-define ('EUC-KR', 'euc-kr');
-define ('UHC',    'cp949');
-define ('CP949',  'cp949');
-define ('UCS2',   'ucs-2be');
-define ('NCR',    'ncr');
+class KSC5601_Common
+{
+	function is_iconv () {
+		return extension_loaded ('iconv');
+	}
 
-global $chk;
-$chk = new KSC5601_Common;
+	function is_mbstring () {
+		return extension_loaded ('mbstring');
+	}
 
-if ( $chk->is_extfunc () === true )
-	require_once 'KSC5601/KSC5601_ext.php';
-else
-	require_once 'KSC5601/KSC5601_pure.php';
+	function is_extfunc () {
+		if ( $this->is_iconv () === true || $this->is_mbstring () === true )
+			return true;
+		return false;
+	}
 
+	function extfunc ($from, $to, $str) {
+		if ( $this->is_iconv () === true )
+			return iconv ($from, $to, $str);
+
+		if ( $this->is_mbstring () === true )
+			return mb_convert_encoding ($str, $to, $from);
+
+		return false;
+	}
+}
 
 /*
  * Local variables:

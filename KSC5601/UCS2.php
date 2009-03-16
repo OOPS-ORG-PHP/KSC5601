@@ -29,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: UCS2.php,v 1.3 2009-03-15 16:56:02 oops Exp $
+ * $Id: UCS2.php,v 1.4 2009-03-16 12:04:39 oops Exp $
  */
 
 require_once 'KSC5601/Stream.php';
@@ -42,7 +42,6 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 	public $ksc_max = 0;
 	public $han_max = 0;
 	public $rev_max = 0;
-	public $ksx1001 = true;
 
 	function __construct () {
 		$this->init_ksc5601 ();
@@ -125,7 +124,7 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 	}
 
 	/*
-	 * UCS4 -> KSC5601
+	 * UCS2 -> KSC5601
 	 */
 	function ucs2ksc ($s) {
 		$this->init_ksc5601 ();
@@ -148,12 +147,12 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		$k1 = $idx >> 8;
 		$k2 = $idx & 0x00ff;
 
-		# KSX 1001 range
-		if ( $this->ksx1001 === true ) {
-			if ( (($k1 > 0x80 && $k1 < 0xa1) && ($k2 > 0x40 && $k2 < 0xff)) ||
-				 (($k1 > 0xa0 && $k1 < 0xc7) && ($k2 > 0x40 && $k2 < 0xa1)) ) {
-				return '&#' . $this->ksc2ucs (chr ($k1), chr ($k2)) . ';';
-			 }
+		# out of KSX 1001 range in CP949/UHC
+		if ( $this->out_ksx1001 === true ) {
+			if ( $this->is_out_of_ksx1001 ($k1, $k2, true) ) {
+				$hex = dechex ($this->ksc2ucs (chr ($k1), chr ($k2)));
+				return '&#x' . strtoupper ($hex) . ';';
+			}
 		}
 
 		return chr ($k1) . chr ($k2);

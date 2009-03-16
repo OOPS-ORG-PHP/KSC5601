@@ -29,35 +29,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: Stream.php,v 1.2 2009-03-15 16:56:02 oops Exp $
+ * $Id: Stream.php,v 1.3 2009-03-16 12:04:39 oops Exp $
  */
 
 class KSC5601_Stream
 {
-	function is_iconv () {
-		return ( extension_loaded ('iconv') && $this->iconv ) ? true : false;
-	}
-
-	function is_mbstring () {
-		return ( extension_loaded ('mbstring') && $this->mbstring ) ? true : false;
-	}
-
-	function is_extfunc () {
-		if ( $this->is_iconv () === true || $this->is_mbstring () === true )
-			return true;
-		return false;
-	}
-
-	function extfunc ($from, $to, $str) {
-		if ( $this->is_iconv () === true )
-			return iconv ($from, $to, $str);
-
-		if ( $this->is_mbstring () === true )
-			return mb_convert_encoding ($str, $to, $from);
-
-		return false;
-	}
-
 	function chr2hex ($c, $prefix = true, $dec = false) {
 		$prefix = $prefix ? '0x' : '';
 		if ( $dec === true )
@@ -81,7 +57,7 @@ class KSC5601_Stream
 
 	function chr2bin ($c, $shift = '') {
 		if ( preg_match ('/^(U\+|0x)/', $c) )
-			$c = $this->hex2chr ($c);
+			$c = KSC5601_Stream::hex2chr ($c);
 
 		$c = ord ($c);
 
@@ -124,6 +100,36 @@ class KSC5601_Stream
 			$r = sprintf ("%0{$bit}s", $r);
 
 		return $r;
+	}
+
+	/*
+	 * proto boolean is_out_of_ksx1001 (chr1, chr2[, is_dec])
+	 *
+	 * Check out of ksx1001 range in UHC/CP949
+	 * return value:
+	 *       return true if char1 and char2 is UHC/CP949 extended range
+	 *       nor return false
+	 */
+	function is_out_of_ksx1001 ($c1, $c2, $is_dec = false) {
+		if ( ! $c1 || ! $c2 )
+			return false;
+
+		if ( $is_dec === false ) {
+			$c1 = ord ($c1);
+			$c2 = ord ($c2);
+		}
+
+		if ( (($c1 > 0x80 && $c1 < 0xa1) && ($c2 > 0x40 && $c2 < 0x5b )) ||
+			 (($c1 > 0x80 && $c1 < 0xa1) && ($c2 > 0x60 && $c2 < 0x7b )) ||
+			 (($c1 > 0x80 && $c1 < 0xa1) && ($c2 > 0x80 && $c2 < 0xff )) ||
+			 (($c1 > 0xa0 && $c1 < 0xc6) && ($c2 > 0x40 && $c2 < 0x5b )) ||
+			 (($c1 > 0xa0 && $c1 < 0xc6) && ($c2 > 0x60 && $c2 < 0x7b )) ||
+			 (($c1 > 0xa0 && $c1 < 0xc6) && ($c2 > 0x80 && $c2 < 0xa1 )) ||
+			 ($c1 == 0xc6 && ($c2 > 0x40 && $k < 0x53)) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	function execute_time ($t1, $t2) {
