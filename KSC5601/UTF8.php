@@ -7,12 +7,24 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.8 2009-03-16 17:15:17 oops Exp $
+ * @version    CVS: $Id: UTF8.php,v 1.9 2009-03-17 09:33:24 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
-Require_once 'KSC5601/Stream.php';
-require_once 'KSC5601/UCS2.php';
+/**
+ * 문자셋 변환을 위한 high level API
+ */
+require_once 'KSC5601/Stream.php';
+
+/*
+ * UCS2.php 는 pure php code를 사용할 경우만 필요
+ */
+if ( EXTMODE === false ) {
+	/**
+	 * UCS2를 제어하기 위한 API class
+	 */
+	require_once 'KSC5601/UCS2.php';
+}
 
 /**
  * KSC5601 패키지에서 UTF8을 제어하기 위한 API Class

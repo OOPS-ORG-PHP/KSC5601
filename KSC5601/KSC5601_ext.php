@@ -9,9 +9,19 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601_ext.php,v 1.2 2009-03-16 16:48:53 oops Exp $
+ * @version    CVS: $Id: KSC5601_ext.php,v 1.3 2009-03-17 09:33:24 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
+
+/**#@+
+ * 내장 extension mode 지원 여부
+ */
+/*
+ * 내장 iconv / mbstring 사용 모드 설정
+ */
+define ('EXTMODE',    true);
+/**#@-*/
+
 
 /**
  * UTF8 을 체크하기 위한 KCS5601::is_utf8 method 원형 API include
@@ -66,12 +76,10 @@ Class KSC5601
 	 * UHC <-> UTF8 문자셋 변환
 	 * @access	public
 	 * @param	string	$string	변환할 문자열
-	 * 	<p>
 	 * 		지정이 되지 않으면 기본으로 UTF8 로 문자셋을 변환함.
 	 * 		UTF8 이 아닐 경우 UHC(CP949) 로 변환 함. KSC5601::out_of_ksx1001
 	 * 		이 true 이 경우, 디코딩 시에 KSX1001 범위 밖의 한글을 NCR 처리
 	 * 		함. @see KSC5601::out_of_ksx1001
-	 * 	</p>
 	 * @param	string	$to     인코딩(UTF8)/디코딩(UHC) [기본: UTF8]
 	 * @return  string
 	 */
@@ -99,10 +107,8 @@ Class KSC5601
 	 * UHC <-> UCS2 문자셋 변환
 	 * @access	public
 	 * @param	string	$string	변환할 문자열
-	 * 	<p>
 	 * 		지정이 되지 않으면 기본으로 UCS2 hexical 로 문자셋을 변환함.
 	 * 		UCS2 가 아닐 경우 UCS2 hexical 을 UHC(CP949) 로 변환 함.
-	 * 	</p>
 	 * @param	string	$to     인코딩(UCS2)/디코딩(UHC) [기본: UCS2]
 	 * @param	boolean $asc    true 경우, 모든 문자를 UCS2 hexical 로 변환
 	 *                          false 의 경우 KSX1001 범위 외의 한글만 UCS hexical 로 변환

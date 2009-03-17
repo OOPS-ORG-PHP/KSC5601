@@ -7,10 +7,13 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UCS2.php,v 1.6 2009-03-16 17:15:17 oops Exp $
+ * @version    CVS: $Id: UCS2.php,v 1.7 2009-03-17 09:33:24 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
+/**
+ * 문자셋 변환을 위한 high level API
+ */
 require_once 'KSC5601/Stream.php';
 
 /**

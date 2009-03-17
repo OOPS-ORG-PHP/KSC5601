@@ -8,9 +8,18 @@
  * @author      JoungKyun.Kim <http://oops.org>
  * @copyright   2009 (c) JoungKyun.Kim
  * @license     BSD License
- * @version     $Id: KSC5601_pure.php,v 1.2 2009-03-16 16:48:53 oops Exp $
+ * @version     $Id: KSC5601_pure.php,v 1.3 2009-03-17 09:33:24 oops Exp $
  * @link        ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
+
+/**#@+
+ * 내장 extension mode 지원 여부
+ */
+/*
+ * 내장 iconv / mbstring 사용 모드 설정
+ */
+define ('EXTMODE',    false);
+/**#@-*/
 
 require_once 'KSC5601/UTF8.php';
 
@@ -87,10 +96,8 @@ Class KSC5601
 	 * UHC <-> UCS2 문자셋 변환
 	 * @access  public
 	 * @param   string  $string 변환할 문자열
-	 *  <p>
 	 *      지정이 되지 않으면 기본으로 UCS2 hexical 로 문자셋을 변환함.
 	 *      UCS2 가 아닐 경우 UCS2 hexical 을 UHC(CP949) 로 변환 함.
-	 *  </p>
 	 * @param   string  $to     인코딩(UCS2)/디코딩(UHC) [기본: UCS2]
 	 * @param   boolean $asc    true 경우, 모든 문자를 UCS2 hexical 로 변환
 	 *                          false 의 경우 KSX1001 범위 외의 한글만 UCS hexical 로 변환
@@ -156,10 +163,8 @@ Class KSC5601
 	 * UHC <-> NCR (Numeric Code Reference) 문자셋 변환
 	 * @access  public
 	 * @param   string  $string 변환할 문자열
-	 *  <p>
 	 *      지정이 되지 않으면 기본으로 NCR code 로 문자셋을 변환함.
 	 *      NCR 이 아닐 경우 NCR code 를 UHC(CP949) 로 변환 함.
-	 *  </p>
 	 * @param   string  $to     인코딩(NCR)/디코딩(UHC) [기본: NCR]
 	 * @param   boolean $enc    true 경우, 모든 문자를 NCR code 로 변환
 	 *                          false 의 경우 KSC5601::out_of_ksx1001 의 설정이 true 일 경우
