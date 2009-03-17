@@ -7,7 +7,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.9 2009-03-17 09:33:24 oops Exp $
+ * @version    CVS: $Id: UTF8.php,v 1.10 2009-03-17 09:36:00 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
@@ -24,6 +24,12 @@ if ( EXTMODE === false ) {
 	 * UCS2를 제어하기 위한 API class
 	 */
 	require_once 'KSC5601/UCS2.php';
+} else {
+	/**
+	 * UCS2.php 를 include 하지 않을 경우 호환성을 위한 dummy class
+	 * @ignore
+	 */
+	Class KSC5601_UCS2 {}
 }
 
 /**
