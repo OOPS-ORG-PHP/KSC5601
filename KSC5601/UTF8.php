@@ -7,7 +7,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.10 2009-03-17 09:36:00 oops Exp $
+ * @version    CVS: $Id: UTF8.php,v 1.11 2009-03-18 12:51:59 oops Exp $
  * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
@@ -91,12 +91,13 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 			/*
 			 * 2byte: 1100000x (10xxxxxx)
-			 * 3byte: 11100000 100xxxxx (10xxxxxx)
-			 * 4byte: 11110000 1000xxxx (10xxxxxx 10xxxxxx)
-			 * 5byte: 11111000 10000xxx (10xxxxxx 10xxxxxx 10xxxxxx)
-			 * 6byte: 11111100 100000xx (10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx)
+			 * 3byte: 11100000 10xxxxxx (10xxxxxx)
+			 * 4byte: 11110000 10xxxxxx (10xxxxxx 10xxxxxx)
+			 * 5byte: 11111000 10xxxxxx (10xxxxxx 10xxxxxx 10xxxxxx)
+			 * 6byte: 11111100 10xxx0xx (10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx)
 			 */
 			for ( $j=1; $j<$byte; $j++ ) {
+				/*
 				if ( $j == 1 ) {
 					$n = 8 - $byte;
 					if ( KSC5601_Stream::chr2bin ($s[$i+1], ">>$n") != KSC5601_Stream::check2byte ($byte) )
@@ -104,6 +105,7 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 					continue;
 				}
+				 */
 
 				if ( KSC5601_Stream::chr2bin ($s[$i+$j], '>>6') != 10 )
 					return false;

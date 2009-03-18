@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package version="2.0" packagerversion="1.7.2" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
-	<!-- $Id: package.xml.tmpl,v 1.9 2009-03-17 09:41:55 oops Exp $ -->
+	<!-- $Id: package.xml.tmpl,v 1.10 2009-03-18 12:51:59 oops Exp $ -->
 	<name>KSC5601</name>
 	<!-- channel>pear.php.net</channel -->
 	<uri>ftp://mirror.oops.org/pub/oops/php/pear/KSC5601/</uri>
@@ -15,26 +15,15 @@
 	<date>@curdate@</date>
 	<time>@curtime@</time>
 	<version>
-		<release>2.0.0</release>
+		<release>2.0.1-dev</release>
 		<api>2.0.0</api>
 	</version>
 	<stability>
-		<release>stable</release>
+		<release>development</release>
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>* interal API version update to 2.0
-* not compotable 1.0.x
-* devided iconv/mbstring mode and Pure code
-* change UCS4 to UCS2 (include api name)
-* Changed noKSX1001 method to out_of_ksx1001
-* Removed usePure method
-* Deprecated toucs2 method. (use ucs($stinrg, UCS2[, $enc))
-* Deprecated todeucs2 method. (use ucs($stinrg, UHC))
-* Deprecated toncr method. (use ncr($stinrg, UHC[, $enc))
-* Deprecated todencr method. (use ncr($stinrg, UHC))
-* Deprecated utf8enc method. (use utf8 ($stinrg, UTF8)))
-* Deprecated utf8dec method. (use utf8 ($stinrg, UHC)))
+	<notes>* fixed wrong utf8 check UTF8::is_utf8 API
 </notes>
 	<contents>
 		<dir name="/">
@@ -74,6 +63,20 @@
 	<changelog>
 		<release>
 			<version>
+				<release>2.0.1-dev</release>
+				<api>2.0.0</api>
+			</version>
+			<stability>
+				<release>development</release>
+				<api>stable</api>
+			</stability>
+			<date>@curdate@</date>
+			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+			<notes>* fixed wrong utf8 check UTF8::is_utf8 API
+</notes>
+		</release>
+		<release>
+			<version>
 				<release>2.0.0</release>
 				<api>2.0.0</api>
 			</version>
@@ -81,7 +84,7 @@
 				<release>stable</release>
 				<api>stable</api>
 			</stability>
-			<date>@curdate@</date>
+			<date>2009-03-17</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 			<notes>* interal API version update to 2.0
 * not compotable 1.0.x
