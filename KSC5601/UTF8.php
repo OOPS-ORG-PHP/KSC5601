@@ -8,7 +8,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.13 2009-07-16 19:48:29 oops Exp $
+ * @version    CVS: $Id: UTF8.php,v 1.14 2009-07-16 20:05:08 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -28,6 +28,7 @@ if ( EXTMODE === false ) {
 } else {
 	/**
 	 * If needless USC2.php, define dummy class for compotable
+	 * @package KSC5601
 	 * @ignore
 	 */
 	Class KSC5601_UCS2 {}

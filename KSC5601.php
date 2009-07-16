@@ -19,7 +19,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.7 2009-07-16 18:59:02 oops Exp $
+ * @version    CVS: $Id: KSC5601.php,v 1.8 2009-07-16 20:05:08 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  * @since      File available since Release 0.1
  */
@@ -63,6 +63,7 @@ define ('NCR',    'ncr');
 
 /**
  * Main Class that support to convert character betwwen KSC5601 and UTF-8
+ * @package KSC5601
  */
 Class KSC5601
 {
@@ -72,10 +73,12 @@ Class KSC5601
 	 */
 	/**
 	 * KSC5601_common object
+	 * @var object
 	 */
 	private $chk;
 	/*
 	 * internal KSC5601 API object
+	 * @var object
 	 */
 	private $obj;
 	/**#@-*/
