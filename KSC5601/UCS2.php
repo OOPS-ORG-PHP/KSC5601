@@ -1,53 +1,60 @@
 <?
 /**
- * KSC5601 패키지에서 USC2를 제어하기 위한 API Class
+ * API class that controls UCS2 for KSC5601 package
  *
  * @category   Charset
- * @package    KSC5601_pure
+ * @package    KSC5601
+ * @subpackage KSC5601_pure
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UCS2.php,v 1.7 2009-03-17 09:33:24 oops Exp $
- * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
+ * @version    CVS: $Id: UCS2.php,v 1.8 2009-07-16 18:59:02 oops Exp $
+ * @link       http://pear.oops.org/package/KSC5601
  */
 
 /**
- * 문자셋 변환을 위한 high level API
+ * import High level API for convert character set
  */
 require_once 'KSC5601/Stream.php';
 
 /**
- * KSC5601 패키지에서 USC2를 제어하기 위한 API Class
- *
- * @category   Charset
- * @package    KSC5601_pure
- * @author     JoungKyun.Kim <http://oops.org>
- * @copyright  (c) 2009, JoungKyun.Kim
- * @license    Like BSD License
- * @version    Release:
+ * API class that controls UCS2 for KSC5601 package
  */
 Class KSC5601_UCS2 extends KSC5601_Stream
 {
+	// {{{ properties
+	/**#@+
+	 * @access public
+	 */
 	public $ksc     = NULL;
 	public $hanja   = NULL;
 	public $revs    = NULL;
 	public $ksc_max = 0;
 	public $han_max = 0;
 	public $rev_max = 0;
+	/**#@-*/
+	// }}}
 
+	// {{{ constructor
+	/**
+	 * @access public
+	 * @return void
+	 */
 	function __construct () {
 		$this->init_ksc5601 ();
 	}
+	// }}}
 
-	/*
-	 * KSC5601 코드 테이블을 초기화 한다.
+	// {{{ function init_ksc5601 ()
+	/**
+	 * Init KSC5601 code table
 	 *
-	 * pure code 를 사용할 경우 필요한 KSC5601 code table 을 메모리에
-	 * 로딩한다. 만약 되어 있을 경우 skip을 한다.
+	 * If use pure code, load KSC5601 code table on memory. If loading,
+	 * skip.
 	 *
 	 * @access public 
-	 * @param void
 	 * @return void
+	 * @param  void
 	 */
 	function init_ksc5601 () {
 		if ( $this->ksc != NULL ) {
@@ -81,15 +88,17 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		$this->han_max = count ($this->hanja);
 		$this->rev_max = count ($this->revs);
 	}
+	// }}}
 
+	// {{{ function ksc2ucs ($c1, $c2)
 	/**
-	 * KSC5601 -> UCS2
+	 * Convert KSC5601 to UCS2
 	 * return decimical value or question mark '?'
 	 *
 	 * @access public
-	 * @param string $c1 1st byte binary 문자
-	 * @param string $c2 2st byte binary 문자
-	 * @return string 10진수 문자열 [42531]
+	 * @return string decimal string(42531) or question mark(?) that is case out of range.
+	 * @param  string 1st byte binary character
+	 * @param  string 2st byte binary character
 	 */
 	function ksc2ucs ($c1, $c2) {
 		$this->init_ksc5601 ();
@@ -126,14 +135,15 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 		return $this->ksc[$idx];
 	}
+	// }}}
 
-	/*
-	 * UCS2 -> KSC5601
-	 * 16진수 문자열을 2byte binary 문자로 변환
+	// {{{ function ucs2ksc ($s)
+	/**
+	 * Convert UCS2 to KSC5601
 	 *
 	 * @access public
-	 * @param string $s 16진수 문자열
-	 * @return string 2byte binary 문자
+	 * @return string 2byte binary character (KSC5601)
+	 * @param  string hexcial strings (UCS2)
 	 */
 	function ucs2ksc ($s) {
 		$this->init_ksc5601 ();
@@ -166,14 +176,17 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 		return chr ($k1) . chr ($k2);
 	}
+	// }}}
 
-	/*
-	 * UCS2 -> KSC5601
-	 * 16진수 문자열을 2byte binary 문자로 변환
+	// {{{ function mk_revTable () {
+	/**
+	 * Print converting code from hexical string(UCS2) to 2byte binary(KSC5601) character.
+	 *
+	 * This method only for develeoper.
 	 *
 	 * @access public
 	 * @param void
-	 * @return string
+	 * @return void
 	 */
 	function mk_revTable () {
 		$this->init_ksc5601 ();
@@ -248,6 +261,7 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 		echo ");\n?>\n";
 	}
+	// }}}
 }
 
 /*

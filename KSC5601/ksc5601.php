@@ -6,14 +6,16 @@
  * there are no restrictions on any sort of usage of this file.
  *
  * @category    Charset
- * @package     KSC5601_pure
+ * @package     KSC5601
+ * @subpackage	KSC5601_pure
  * @author      JoungKyun.Kim <http://oops.org>
  * @copyright   2009 (c) JoungKyun.Kim
  * @license     BSD License
- * @version     $Id: ksc5601.php,v 1.3 2009-03-16 16:48:53 oops Exp $
- * @link        ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
+ * @version     $Id: ksc5601.php,v 1.4 2009-07-16 18:59:02 oops Exp $
+ * @link        http://pear.oops.org/package/KSC5601
  */
 
+// {{{ $GLOBALS['table_ksc5601']
 /**
  * KSC5601 table map
  * @global array $GLOBALS['table_ksc5601']
@@ -4381,4 +4383,5 @@ $GLOBALS['table_ksc5601_rev'] = array (
 33288 => 0xfde9, 20694 => 0xfdea, 20958 => 0xfdeb, 21916 => 0xfdec, 22123 => 0xfded, 22221 => 0xfdee, 23020 => 0xfdef, 23305 => 0xfdf0,
 24076 => 0xfdf1, 24985 => 0xfdf2, 24984 => 0xfdf3, 25137 => 0xfdf4, 26206 => 0xfdf5, 26342 => 0xfdf6, 29081 => 0xfdf7, 29113 => 0xfdf8,
 29114 => 0xfdf9, 29351 => 0xfdfa, 31143 => 0xfdfb, 31232 => 0xfdfc, 32690 => 0xfdfd, 35440 => 0xfdfe);
+// }}}
 ?>

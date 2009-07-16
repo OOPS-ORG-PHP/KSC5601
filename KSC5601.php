@@ -1,60 +1,36 @@
 <?php
 /**
+ * Project: KSC5601 :: convert character set between KSC5601 and UTF8
+ * File:    KSC5601.php
  *
- * KSC5601 / UTF8 문자셋 간의 변환 및 관리를 위한 기능을 제공
- *
- * KSC5601 pear package 는 UHC <-> UTF8 또는 UHC <-> UCS2 간의 문자셋
- * 변환을 지원을 한다. 또한 NCR code 변환을 지원하여, 웹상에서 KSX1001
- * 범위밖의 표현하지 못하는 한글 문자를 NCR code 로 출력이 가능하도록
- * 지원을 한다.
+ * PHP version 5
  *
  * Copyright (c) 2009, JoungKyun.Kim <http://oops.org>
- * 
- * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ * LICENSE: BSD License
  *
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the authors nor the names of its contributors
- *       may be used to endorse or promote products derived from this software
- *       without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
- * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * KSC5601 pear package support to convert character set between UHC and UTF8
+ * or between UHC and UCS2 or between UHC(or CP949) and NCR (Numeric character
+ * reference) code. Also, Converting between UHC and NCR is enabled to print
+ * unrecognized character that is out of KSX1001 range.
  *
  * @category   Charset
  * @package    KSC5601
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    Like BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.6 2009-03-16 17:15:17 oops Exp $
- * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
+ * @license    BSD License
+ * @version    CVS: $Id: KSC5601.php,v 1.7 2009-07-16 18:59:02 oops Exp $
+ * @link       http://pear.oops.org/package/KSC5601
  * @since      File available since Release 0.1
  */
 
 /**
- * PHP iconv/mbstring 확장 모듈 지원 여부를 확인 하기 위한 Check KSC5601_Common class
+ * import KSC5601_Common class that checked support or unsupport PHP iconv or
+ * mbstring extensions.
  */
 require_once 'KSC5601/Common.php';
 
-/**#@+
- * 지원하는 문자셋 상수
- */
+// {{{ constant
 /*
  * Local charset string
  */
@@ -83,24 +59,168 @@ define ('UCS2',   'ucs-2be');
  * Numeric Code Reference string
  */
 define ('NCR',    'ncr');
-/**#@-*/
+//}}}
 
-global $chk;
-
-$chk = new KSC5601_Common;
-
-if ( $chk->is_extfunc () === true ) {
-	/**
-	 * php iconv / mbstring 확장이 지원될 경우, iconv/mbsting API 를 이용하기 위한 KSC5601 class
+/**
+ * Main Class that support to convert character betwwen KSC5601 and UTF-8
+ */
+Class KSC5601
+{
+	// {{{ properties
+	/**#@+
+	 * @access private
 	 */
-	require_once 'KSC5601/KSC5601_ext.php';
-} else {
 	/**
-	 * php iconv / mbstring 확장이 지원 되지 않을 경우, pure php API 를 이용하기 위한 KSC5601 class
+	 * KSC5601_common object
 	 */
-	require_once 'KSC5601/KSC5601_pure.php';
+	private $chk;
+	/*
+	 * internal KSC5601 API object
+	 */
+	private $obj;
+	/**#@-*/
+	// }}}
+
+	// {{{ constructor
+	/**
+	 * Support iconv or mbstring extension, use KSC5601_ext internal class, or not
+	 * support use KSC5601_pure internal class.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	function __construct () {
+		$this->chk = new KSC5601_Common;
+
+		if ( $this->chk->is_extfunc () !== true ) {
+			/**
+			 * KSC5601_ext class method use iconv or mbstring extension
+			 */
+			require_once 'KSC5601/KSC5601_ext.php';
+			$this->obj = new KSC5601_ext ($this->chk);
+		} else {
+			/**
+			 * KSC5601_pure class method don't use iconv and mbstring extensions.
+			 * This class is construct with pure php code and character set code
+			 * tables.
+			 */
+			require_once 'KSC5601/KSC5601_pure.php';
+			$this->obj = new KSC5601_pure;
+		}
+	}
+	// }}}
+
+	// {{{ function out_of_ksc1001 ($flag = false)
+	/**
+	 * Set whether convert hangul that is out of KSX1001 range. This method changes
+	 * private $out_ksc1001 variable.
+	 *
+	 * @access  public
+	 * @return  boolean Return 
+	 * @param   boolean (optional) Defaults to false
+	 *  <ol>
+	 *      <li>true : When decode UTF-8, convert to NCR from hangul character that is out of KSX1001 range.</li>
+	 *      <li>true : When encode NCR from UHC(CP949), convert to NCR with only hangul that is out of KSX1001 range.</li>
+	 *      <li>false : No action</li>
+	 *  </ol>
+	 */
+	function out_of_ksc1001 ($flag = false) {
+		return $this->obj->out_of_ksx1001 ($flag);
+	}
+	// }}}
+
+	// {{{ function is_utf8 ($string)
+	/**
+	 * Check given string wheter utf8 of not.
+	 *
+	 * @access  public
+	 * @return  boolean Given string is utf8, return true.
+	 * @param   string  Given strings
+	 */
+	function is_utf8 ($string) {
+		return $this->obj->is_utf8 ($string);
+	}
+	// }}}
+
+	// {{{ function utf8 ($string, $to = UTF8)
+	/**
+	 * Convert between UHC and UTF-8
+	 *
+	 * @access  public
+	 * @return  string
+	 * @param   string  Given string.
+	 * @param   string  (optional) Defaults to UTF8. Value is UTF8 or UHC constant.
+	 *                  This parameter is not set or set with UTF8 constant, convert
+	 *                  given string to UTF-8.
+	 *
+	 *                  Set to UHC constant, conert to uhc from utf-8. If intenal
+	 *                  $out_ksx1001 variable is set true that means call
+	 *                  KSC5601::out_of_ksx1001(true)), convert to NCR hangul
+	 *                  that is out of KSX1001 range.
+	 *                  @see KSC5601::out_of_ksx1001
+	 */
+	function utf8 ($string, $to = UTF8) {
+		return $this->obj->utf8 ($string, $to);
+	}
+	// }}}
+
+	// {{{ function ucs2 ($string, $to = UCS2, $asc = false)
+	/**
+	 * Convert between UHC and UCS2
+	 *
+	 * @access  public
+	 * @return  string
+	 * @param   string  Given string
+	 * @param   string  (optional) Detauls to UCS2. Value is UCS2 or UHC constants.
+	 *                  Set UCS2 constant, convert UHC to UCS2 hexical (for example, U+B620).
+	 *                  Set UHC constant, convert UCS2 hexical to UHC.
+	 * @param   boolean (optional) Defaults to false. This parameter is used only UHC -> UCS2 mode.
+	 *                  Set true, convert all characters to UCS2 hexical. Set false, only convert
+	 *                  hangul that is out of KSX1001 range to UCS hexical.
+	 */
+	function ucs2 ($string, $to = UCS2, $asc = false) {
+		return $this->obj->ucs2 ($string, $to, $asc);
+	}
+	// }}}
+
+	// {{{ function ncr ($string, $to = NCR, $enc = false)
+	/**
+	 * Convert between UHC and NCR (Numeric Code Reference)
+	 *
+	 * @access  public
+	 * @return  string
+	 * @param   string  Given string
+	 * @param   string  (optional) Defaults to NCR constant. Value is NCR or UHC constants.
+	 *                  Set NCR constant, convert UHC(CP949) to NCR code. Set UHC constant,
+	 *                  convert NCR code to UHC(cp949).
+	 * @param   boolean (optional) Defaults to false. This parameter is used only UHC -> NCR mode.
+	 *                  Set false, only convert hangul that is out of KSX1001 range to NCR
+	 *                  when internal $out_ksx1001 variable set true that meas called
+	 *                  KSC5601::out_of_ksx1001 (true).
+	 *
+	 *                  Set true, convert all character to NCR code.
+	 */
+	function ncr ($string, $to = NCR, $enc = false) {
+		return $this->obj->ncr ($string, $to, $enc);
+	}
+	// }}}
+
+	// {{{ function make_reverse_table ()
+	/**
+	 * Print php code for KSC5601 reverse table
+	 * This method is used only developer for KSC5601 pure code.
+	 *
+	 * @access public
+	 * @return void
+	 * @param  void
+	 */
+	function make_reverse_table () {
+		if ( $this->chk->is_extfunc () === false ) {
+			$this->obj->make_reverse_table ();
+		}
+	}
+	// }}}
 }
-
 
 /*
  * Local variables:
