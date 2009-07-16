@@ -12,7 +12,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601_pure.php,v 1.4 2009-07-16 18:59:02 oops Exp $
+ * @version    CVS: $Id: KSC5601_pure.php,v 1.5 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -32,6 +32,8 @@ require_once 'KSC5601/UTF8.php';
 
 /**
  * Original API of KSC5601 that used pure php code
+ *
+ * @package KSC5601
  */
 Class KSC5601_pure
 {
@@ -48,6 +50,7 @@ Class KSC5601_pure
 	 * Set false, no action for hangul that is out of ksx1001 range.
 	 */
 	private $out_ksx1001 = false;
+	/**#@-*/
 	// }}}
 
 	// {{{ construct

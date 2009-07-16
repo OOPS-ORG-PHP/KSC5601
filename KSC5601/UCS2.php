@@ -8,7 +8,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UCS2.php,v 1.8 2009-07-16 18:59:02 oops Exp $
+ * @version    CVS: $Id: UCS2.php,v 1.9 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -19,6 +19,8 @@ require_once 'KSC5601/Stream.php';
 
 /**
  * API class that controls UCS2 for KSC5601 package
+ *
+ * @package KSC5601
  */
 Class KSC5601_UCS2 extends KSC5601_Stream
 {

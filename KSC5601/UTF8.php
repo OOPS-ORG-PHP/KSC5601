@@ -8,7 +8,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.12 2009-07-16 18:59:02 oops Exp $
+ * @version    CVS: $Id: UTF8.php,v 1.13 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -35,6 +35,8 @@ if ( EXTMODE === false ) {
 
 /**
  * UTF8 controle class api
+ *
+ * @package KSC5601
  */
 class KSC5601_UTF8 extends KSC5601_UCS2
 {

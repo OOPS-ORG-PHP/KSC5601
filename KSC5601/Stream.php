@@ -11,7 +11,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: Stream.php,v 1.5 2009-07-16 18:59:02 oops Exp $
+ * @version    CVS: $Id: Stream.php,v 1.6 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -20,6 +20,8 @@
  *
  * This api is high level api that convert between binary and numeric
  * for convert character set with PHP
+ *
+ * @package KSC5601
  */
 class KSC5601_Stream
 {

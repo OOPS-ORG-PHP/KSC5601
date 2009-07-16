@@ -11,7 +11,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: Common.php,v 1.3 2009-07-16 18:59:02 oops Exp $
+ * @version    CVS: $Id: Common.php,v 1.4 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -20,9 +20,12 @@
  * 
  * This class support check of using iconv/mbstring method and iconv/mbstring
  * wrapper method.
+ *
+ * @package KSC5601
  */
 class KSC5601_Common
 {
+	// {{{ function is_iconv ()
 	/**
 	 * Check to enable iconv extension on this session.
 	 *
@@ -34,7 +37,9 @@ class KSC5601_Common
 	function is_iconv () {
 		return extension_loaded ('iconv');
 	}
+	// }}}
 
+	// {{{ function is_mbstring ()
 	/**
 	 * Check to enable mbstring extension on this session.
 	 *
@@ -46,7 +51,9 @@ class KSC5601_Common
 	function is_mbstring () {
 		return extension_loaded ('mbstring');
 	}
+	// }}}
 
+	// {{{ function is_extfunc ()
 	/**
 	 * Check to enable iconv or mbstring extension on this session.
 	 *
@@ -59,7 +66,9 @@ class KSC5601_Common
 			return true;
 		return false;
 	}
+	// }}}
 
+	// {{{ function extfunc ($from, $to, $str)
 	/**
 	 * iconv/mbstring wrapper function
 	 *
@@ -80,6 +89,7 @@ class KSC5601_Common
 
 		return false;
 	}
+	// }}}
 }
 
 /*

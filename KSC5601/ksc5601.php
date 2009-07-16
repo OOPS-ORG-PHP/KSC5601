@@ -2,7 +2,7 @@
 /** 
  * KSC5601 table map
  *
- * this file is in the public domain.
+ * This file is in the public domain.
  * there are no restrictions on any sort of usage of this file.
  *
  * @category    Charset
@@ -11,13 +11,14 @@
  * @author      JoungKyun.Kim <http://oops.org>
  * @copyright   2009 (c) JoungKyun.Kim
  * @license     BSD License
- * @version     $Id: ksc5601.php,v 1.4 2009-07-16 18:59:02 oops Exp $
+ * @version     $Id: ksc5601.php,v 1.5 2009-07-16 19:48:29 oops Exp $
  * @link        http://pear.oops.org/package/KSC5601
  */
 
 // {{{ $GLOBALS['table_ksc5601']
 /**
  * KSC5601 table map
+ *
  * @global array $GLOBALS['table_ksc5601']
  * @name $table_ksc5601
  */
@@ -1624,9 +1625,12 @@ $GLOBALS['table_ksc5601'] = array(
 0xd754, 0xd756, 0xd757, 0xd758, 0xd759, 0xd760, 0xd761, 0xd763,
 0xd765, 0xd769, 0xd76c, 0xd770, 0xd774, 0xd77c, 0xd77d, 0xd781,
 0xd788, 0xd789, 0xd78c, 0xd790, 0xd798, 0xd799, 0xd79b, 0xd79d);
+// }}}
 
+// {{{ $GLOBALS['table_ksc5601_hanja']
 /**
  * KSC5601 hanja table map
+ *
  * @global array $GLOBALS['table_ksc5601_hanja']
  * @name $table_ksc5601_hanja
  */
@@ -2242,11 +2246,13 @@ $GLOBALS['table_ksc5601_hanja'] = array(
 0x6d3d, 0x7fd5, 0x8208, 0x50d6, 0x51de, 0x559c, 0x566b, 0x56cd,
 0x59ec, 0x5b09, 0x5e0c, 0x6199, 0x6198, 0x6231, 0x665e, 0x66e6,
 0x7199, 0x71b9, 0x71ba, 0x72a7, 0x79a7, 0x7a00, 0x7fb2, 0x8a70);
+// }}}
 
+// {{{ $GLOBALS['table_ksc5601_rev']
 /**
  * KSC5601 reverse table map
  *
- * this array is made by KSC5601_UCS2::mk_revtable method
+ * This array is made by KSC5601_UCS2::mk_revtable method
  *
  * @global array $GLOBALS['table_ksc5601_rev']
  * @name $table_ksc5601_rev
