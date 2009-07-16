@@ -12,7 +12,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601_pure.php,v 1.5 2009-07-16 19:48:29 oops Exp $
+ * @version    CVS: $Id: KSC5601_pure.php,v 1.6 2009-07-16 19:56:52 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -43,11 +43,13 @@ Class KSC5601_pure
 	 */
 	/**
 	 * KSC5601_UTF8 object
+	 * @var object
 	 */
 	private $obj;
 	/**
 	 * Status whether process hangul that is out of ksx1001 range.
 	 * Set false, no action for hangul that is out of ksx1001 range.
+	 * @var boolean
 	 */
 	private $out_ksx1001 = false;
 	/**#@-*/
