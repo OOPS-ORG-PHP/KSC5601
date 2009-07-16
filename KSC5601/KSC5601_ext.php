@@ -12,7 +12,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: KSC5601_ext.php,v 1.6 2009-07-16 19:56:52 oops Exp $
+ * @version    CVS: $Id: KSC5601_ext.php,v 1.7 2009-07-16 20:00:24 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  */
 
@@ -20,7 +20,6 @@
 /**
  * Define EXTMODE to true. This means that php support iconv or mbstring
  * extensions.
- * @global
  */
 define ('EXTMODE',    true);
 // }}}
