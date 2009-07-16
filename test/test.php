@@ -12,17 +12,21 @@ function pr ($title, $msg) {
 $time1 = microtime ();
 
 $cli = ( php_sapi_name () == 'cli' ) ? true : false;
-$test = false;
 
 if ( $cli !== true ) {
 	header('Content-Type: text/html');
 	echo "<pre>";
 }
 
-if ( $test === true ) {
+if ( file_exists ('../KSC5601.php') ) {
+	# 하위 디렉토리에 KSC5601.php 가 존재할 경우, source tree에서의 테스트로
+	# 간주하여, include_path에 현재 디렉토리의 파일을 가장 우선시 시키고,
+	# 하위 디렉토리로 이동
 	$path = ini_get ('include_path');
-	$path .= ':..';
+	$path = '.:' . $path;
 	ini_set ('include_path', $path);
+
+	chdir ('..');
 }
 
 require_once 'KSC5601.php';
