@@ -19,7 +19,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.8 2009-07-16 20:05:08 oops Exp $
+ * @version    CVS: $Id: KSC5601.php,v 1.9 2010-11-10 19:31:49 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
  * @since      File available since Release 0.1
  */
@@ -134,7 +134,7 @@ Class KSC5601
 
 	// {{{ function is_utf8 ($string)
 	/**
-	 * Check given string wheter utf8 of not.
+	 * Check given string wheter utf8 or not.
 	 *
 	 * @access  public
 	 * @return  boolean Given string is utf8, return true.
@@ -142,6 +142,57 @@ Class KSC5601
 	 */
 	function is_utf8 ($string) {
 		return $this->obj->is_utf8 ($string);
+	}
+	// }}}
+
+	// {{{ function is_ksc5601 ($string)
+	/**
+	 * Check given string wheter ksc5601 oj not.
+	 *
+	 * @access  public
+	 * @return  boolean Given string is ksc5601, return true.
+	 * @param   string  Given strings
+	 */
+	function is_ksc5601 ($string, $ksx1001 = false) {
+		if ( strlen ($string) != 2 )
+			return false;
+
+		$c1 = ord ($string[0]);
+		$c2 = ord ($string[1]);
+
+		if ( ! ($c1 & 0x80) )
+			return false;
+
+		if ( $ksx1001 === true ) {
+			if ( ($c1 > 0x80 && $c1 < 0xa2 && $c2 > 0x40 && $c2 < 0xff) ||
+				 ($c1 > 0xa0 && $c1 < 0xc7 && $c2 > 0x40 && $c2 < 0xa1) ) {
+				if ( $c2 < 0x41 || $c2 < 0x61 )
+					return false;
+				if ( $c2 > 0x5a && $c2 < 0x61 )
+					return false;
+				if ( $c2 > 0x7a && $c2 < 0x81 )
+					return false;
+			}
+		} else {
+			if ( ($c1 > 0x80 && $c1 < 0xa2 && $c2 > 0x40 && $c2 < 0xff) ||
+				 ($c1 > 0xa0 && $c1 < 0xc7 && $c2 > 0x40 && $c2 < 0xa1) )
+				return false;
+		}
+
+		return true;
+	}
+	// }}}
+
+	// {{{ function is_ksx1001 ($string)
+	/**
+	 * Check given string wheter ksx1001 oj not.
+	 *
+	 * @access  public
+	 * @return  boolean Given string is ksx1001, return true.
+	 * @param   string  Given strings
+	 */
+	function is_ksx1001 ($string) {
+		return self::is_ksc5601 ($string, true);
 	}
 	// }}}
 
