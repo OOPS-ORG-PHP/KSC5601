@@ -8,7 +8,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    Like BSD License
- * @version    CVS: $Id: UTF8.php,v 1.14 2009-07-16 20:05:08 oops Exp $
+ * @version    CVS: $Id$
  * @link       http://pear.oops.org/package/KSC5601
  */
 

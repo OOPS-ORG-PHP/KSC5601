@@ -19,7 +19,7 @@
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
  * @license    BSD License
- * @version    CVS: $Id: KSC5601.php,v 1.9 2010-11-10 19:31:49 oops Exp $
+ * @version    CVS: $Id$
  * @link       http://pear.oops.org/package/KSC5601
  * @since      File available since Release 0.1
  */
