@@ -14,18 +14,15 @@
 	<date>@curdate@</date>
 	<time>@curtime@</time>
 	<version>
-		<release>2.0.1</release>
-		<api>2.0.1</api>
+		<release>2.0.2</release>
+		<api>2.0.2</api>
 	</version>
 	<stability>
-		<release>stable</release>
+		<release>devel</release>
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>* fixed wrong utf8 check UTF8::is_utf8 API
-* changed internal KSC5601 class to KSC5601_ext and KSC5601_pure
-* changed comments to english
-* add is_ksc5601 and is_ksx1001 method
+	<notes>* Add ascii only check mode in UTF8::is_utf8 API
 </notes>
 	<contents>
 		<dir name="/">
@@ -63,6 +60,20 @@
 	</dependencies>
 	<phprelease />
 	<changelog>
+		<release>
+			<version>
+				<release>2.0.2</release>
+				<api>2.0.2</api>
+			</version>
+			<stability>
+				<release>devel</release>
+				<api>stable</api>
+			</stability>
+			<date>@curdate@</date>
+			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+			<notes>* Add ascii only check mode in UTF8::is_utf8 API
+</notes>
+		</release>
 		<release>
 			<version>
 				<release>2.0.1</release>

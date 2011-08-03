@@ -132,16 +132,17 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function is_utf8 ($string)
+	// {{{ function is_utf8 ($string, $ascii_only_check)
 	/**
 	 * Check given string wheter utf8 or not.
 	 *
 	 * @access  public
 	 * @return  boolean Given string is utf8, return true.
 	 * @param   string  Given strings
+	 * @param   boolean Check whether is ascii only or not
 	 */
-	function is_utf8 ($string) {
-		return $this->obj->is_utf8 ($string);
+	function is_utf8 ($string, $ascii_only_check = false) {
+		return $this->obj->is_utf8 ($string, $ascii_only_check);
 	}
 	// }}}
 
