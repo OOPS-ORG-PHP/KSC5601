@@ -22,6 +22,7 @@
  * @version    CVS: $Id$
  * @link       http://pear.oops.org/package/KSC5601
  * @since      File available since Release 0.1
+ * @filesource
  */
 
 /**
@@ -31,34 +32,45 @@
 require_once 'KSC5601/Common.php';
 
 // {{{ constant
-/*
+/**#@+
+ * @access public
+ */
+/**
  * Local charset string
+ * @name LOC
  */
 define ('LOC',    'loc');
 /**
  * UTF8 charset string
+ * @name UTF8
  */
 define ('UTF8',   'utf8');
 /**
  * EUC-KR charset string
+ * @name EUC-KR
  */
 define ('EUC-KR', 'euc-kr');
 /**
  * CP949 Alias
+ * @name UHC
  */
 define ('UHC',    'cp949');
 /**
  * CP949 charset string
+ * @name CP949
  */
 define ('CP949',  'cp949');
 /**
  * UCS2 big endian charset string
+ * @name UCS2
  */
 define ('UCS2',   'ucs-2be');
-/*
+/**
  * Numeric Code Reference string
+ * @name NCR
  */
 define ('NCR',    'ncr');
+/**#@-*/
 //}}}
 
 /**
@@ -210,9 +222,9 @@ Class KSC5601
 	 *
 	 *                  Set to UHC constant, conert to uhc from utf-8. If intenal
 	 *                  $out_ksx1001 variable is set true that means call
-	 *                  KSC5601::out_of_ksx1001(true)), convert to NCR hangul
+	 *                  KSC5601::out_of_ksx1001(true), convert to NCR hangul
 	 *                  that is out of KSX1001 range.
-	 *                  @see KSC5601::out_of_ksx1001
+	 * @see KSC5601::out_of_ksx1001()
 	 */
 	function utf8 ($string, $to = UTF8) {
 		return $this->obj->utf8 ($string, $to);
@@ -251,7 +263,7 @@ Class KSC5601
 	 * @param   boolean (optional) Defaults to false. This parameter is used only UHC -> NCR mode.
 	 *                  Set false, only convert hangul that is out of KSX1001 range to NCR
 	 *                  when internal $out_ksx1001 variable set true that meas called
-	 *                  KSC5601::out_of_ksx1001 (true).
+	 *                  KSC5601::out_of_ksx1001(true).
 	 *
 	 *                  Set true, convert all character to NCR code.
 	 */

@@ -13,6 +13,7 @@
  * @license     BSD License
  * @version     $Id$
  * @link        http://pear.oops.org/package/KSC5601
+ * @filesource
  */
 
 // {{{ $GLOBALS['table_ksc5601']

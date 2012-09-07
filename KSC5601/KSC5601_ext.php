@@ -14,6 +14,7 @@
  * @license    Like BSD License
  * @version    CVS: $Id$
  * @link       http://pear.oops.org/package/KSC5601
+ * @filesource
  */
 
 // {{{ constant
