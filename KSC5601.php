@@ -3,12 +3,6 @@
  * Project: KSC5601 :: convert character set between KSC5601 and UTF8
  * File:    KSC5601.php
  *
- * PHP version 5
- *
- * Copyright (c) 2009, JoungKyun.Kim <http://oops.org>
- *
- * LICENSE: BSD License
- *
  * KSC5601 pear package support to convert character set between UHC and UTF8
  * or between UHC and UCS2 or between UHC(or CP949) and NCR (Numeric character
  * reference) code. Also, Converting between UHC and NCR is enabled to print
