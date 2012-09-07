@@ -11,8 +11,8 @@
  * @subpackage KSC5601_pure
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    Like BSD License
- * @version    CVS: $Id$
+ * @license    BSD License
+ * @version    $Id$
  * @link       http://pear.oops.org/package/KSC5601
  * @filesource
  */

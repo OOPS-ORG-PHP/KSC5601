@@ -1,4 +1,4 @@
-<?
+<?php
 /** 
  * KSC5601 table map
  *
