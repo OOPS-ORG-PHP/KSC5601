@@ -125,10 +125,10 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function out_of_ksc1001 ($flag = false)
+	// {{{ function out_of_ksx1001 ($flag = false)
 	/**
 	 * Set whether convert hangul that is out of KSX1001 range. This method changes
-	 * private $out_ksc1001 variable.
+	 * private $out_ksx1001 variable.
 	 *
 	 * @access  public
 	 * @return  boolean Return 
@@ -139,7 +139,7 @@ Class KSC5601
 	 *      <li>false : No action</li>
 	 *  </ol>
 	 */
-	function out_of_ksc1001 ($flag = false) {
+	function out_of_ksx1001 ($flag = false) {
 		return $this->obj->out_of_ksx1001 ($flag);
 	}
 	// }}}

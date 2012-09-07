@@ -11,8 +11,8 @@
 		<email>joungkyun@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2011-08-04</date>
-	<time>00:45:12</time>
+	<date>2012-09-08</date>
+	<time>04:50:29</time>
 	<version>
 		<release>2.0.2</release>
 		<api>2.0.2</api>
@@ -23,17 +23,18 @@
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 	<notes>* Add ascii only check mode in UTF8::is_utf8 API
+* change method name KSC5601::out_of_ksc1001 to KSC5601::out_of_ksx1001
 </notes>
 	<contents>
 		<dir name="/">
-			<file role="php" md5sum="8484552013ee25b7b8aa0df3cf2b1bef" name="KSC5601/KSC5601_ext.php" />
-			<file role="php" md5sum="62fae61b75cbdc827ffaffa6334e27ba" name="KSC5601/KSC5601_pure.php" />
-			<file role="php" md5sum="c8aeba3f645578786b94b515198f89b8" name="KSC5601/Common.php" />
-			<file role="php" md5sum="3acf54f16aa24a59300a7f76d750a46b" name="KSC5601/Stream.php" />
-			<file role="php" md5sum="ad3e5c264fbc421c82d9b1bac0f81017" name="KSC5601/UCS2.php" />
-			<file role="php" md5sum="4e652647c346adfe923e665381721559" name="KSC5601/UTF8.php" />
-			<file role="php" md5sum="9aff56a9b9a0c4422aeae7a1428f5fab" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="432c91e7cc4a6cf2ae1d26fd0b67c8cd" name="KSC5601.php" />
+			<file role="php" md5sum="19c11da6b7c35548cbc739f0d79a20f0" name="KSC5601/KSC5601_ext.php" />
+			<file role="php" md5sum="3b794de1053116c111f3265cdec20a0d" name="KSC5601/KSC5601_pure.php" />
+			<file role="php" md5sum="76750a0cfb586fa585a331a607ab87ca" name="KSC5601/Common.php" />
+			<file role="php" md5sum="6061ca0d2448b99db8df8d0d9dcea6d4" name="KSC5601/Stream.php" />
+			<file role="php" md5sum="15b0b5e5b0756c76235050836b71cf44" name="KSC5601/UCS2.php" />
+			<file role="php" md5sum="8fb8a774b380620e959b8ff730d3e9d9" name="KSC5601/UTF8.php" />
+			<file role="php" md5sum="4db6720036ab71890f143752ce7616f5" name="KSC5601/ksc5601.php" />
+			<file role="php" md5sum="082a7a8c191e99cea587d4e686592c37" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
@@ -69,9 +70,10 @@
 				<release>devel</release>
 				<api>stable</api>
 			</stability>
-			<date>2011-08-04</date>
+			<date>2012-09-08</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 			<notes>* Add ascii only check mode in UTF8::is_utf8 API
+* change method name KSC5601::out_of_ksc1001 to KSC5601::out_of_ksx1001
 </notes>
 		</release>
 		<release>
@@ -83,7 +85,7 @@
 				<release>stable</release>
 				<api>stable</api>
 			</stability>
-			<date>2011-08-04</date>
+			<date>2012-09-08</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 			<notes>* fixed wrong utf8 check UTF8::is_utf8 API
 * changed internal KSC5601 class to KSC5601_ext and KSC5601_pure
