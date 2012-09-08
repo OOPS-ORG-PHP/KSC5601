@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * API class that controls UCS2 for KSC5601 package
  *
