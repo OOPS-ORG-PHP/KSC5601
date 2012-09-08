@@ -17,6 +17,7 @@
  * @link       http://pear.oops.org/package/KSC5601
  * @since      File available since Release 0.1
  * @filesource
+ * @example    pear_KSC5601/test/test.php Sample codes of KSC5601 class
  */
 
 /**
