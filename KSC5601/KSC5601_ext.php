@@ -21,6 +21,7 @@
 /**
  * Define EXTMODE to true. This means that php support iconv or mbstring
  * extensions.
+ * @ignore
  */
 define ('EXTMODE',    true);
 // }}}
