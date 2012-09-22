@@ -19,9 +19,9 @@ if ( $cli !== true ) {
 }
 
 if ( file_exists ('../KSC5601.php') ) {
-	# ÇÏÀ§ µð·ºÅä¸®¿¡ KSC5601.php °¡ Á¸ÀçÇÒ °æ¿ì, source tree¿¡¼­ÀÇ Å×½ºÆ®·Î
-	# °£ÁÖÇÏ¿©, include_path¿¡ ÇöÀç µð·ºÅä¸®ÀÇ ÆÄÀÏÀ» °¡Àå ¿ì¼±½Ã ½ÃÅ°°í,
-	# ÇÏÀ§ µð·ºÅä¸®·Î ÀÌµ¿
+	# í•˜ìœ„ ë””ë ‰í† ë¦¬ì— KSC5601.php ê°€ ì¡´ìž¬í•  ê²½ìš°, source treeì—ì„œì˜ í…ŒìŠ¤íŠ¸ë¡œ
+	# ê°„ì£¼í•˜ì—¬, include_pathì— í˜„ìž¬ ë””ë ‰í† ë¦¬ì˜ íŒŒì¼ì„ ê°€ìž¥ ìš°ì„ ì‹œ ì‹œí‚¤ê³ ,
+	# í•˜ìœ„ ë””ë ‰í† ë¦¬ë¡œ ì´ë™
 	$path = ini_get ('include_path');
 	$path = '.:' . $path;
 	ini_set ('include_path', $path);
@@ -39,14 +39,14 @@ require_once 'KSC5601.php';
 
 $obj = new KSC5601;
 
-# Ç¥½ÃÇÒ ¼ö ¾ø´Â KSX1001 ¹üÀ§ ¹ÛÀÇ ¹®ÀÚ (CP949/UHC È®Àå ¿µ¿ª) ¸¦ 
-# NCR code ·Î º¯°æ ÇÑ´Ù.
+# í‘œì‹œí•  ìˆ˜ ì—†ëŠ” KSX1001 ë²”ìœ„ ë°–ì˜ ë¬¸ìž (CP949/UHC í™•ìž¥ ì˜ì—­) ë¥¼ 
+# NCR code ë¡œ ë³€ê²½ í•œë‹¤.
 #$obj->out_of_ksx1001 (true);
 
 $t1 = microtime ();
 $ksc = file_get_contents ('./test/test.txt');
 
-pr ('¿ø¹®', $ksc);
+pr ('ì›ë¬¸', $ksc);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
@@ -63,7 +63,7 @@ echo "=>  " . mtime ($t1, $t2) . " sec\n";
 /*
  * Convert UTF8 to UHC/CP949
  *
- * todo : utf8 -> UHC/CP949 Ã³¸®
+ * todo : utf8 -> UHC/CP949 ì²˜ë¦¬
  *
  */
 $t1 = microtime ();
