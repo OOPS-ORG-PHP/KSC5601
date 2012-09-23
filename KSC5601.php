@@ -180,10 +180,11 @@ Class KSC5601
 					return false;
 				if ( $c2 > 0x7a && $c2 < 0x81 )
 					return false;
-			}
+			} else
+				return false;
 		} else {
-			if ( ($c1 > 0x80 && $c1 < 0xa2 && $c2 > 0x40 && $c2 < 0xff) ||
-				 ($c1 > 0xa0 && $c1 < 0xc7 && $c2 > 0x40 && $c2 < 0xa1) )
+			if ( ! (($c1 > 0x80 && $c1 < 0xa2 && $c2 > 0x40 && $c2 < 0xff) ||
+				 ($c1 > 0xa0 && $c1 < 0xc7 && $c2 > 0x40 && $c2 < 0xa1)) )
 				return false;
 		}
 
