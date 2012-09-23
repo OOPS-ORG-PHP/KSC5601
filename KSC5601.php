@@ -1,12 +1,16 @@
 <?php
 /**
- * Project: KSC5601 :: convert character set between KSC5601 and UTF8
+ * Project: KSC5601 :: convert character set between KSC5601 and UTF8<br>
  * File:    KSC5601.php
  *
- * KSC5601 pear package support to convert character set between UHC and UTF8
- * or between UHC and UCS2 or between UHC(or CP949) and NCR (Numeric character
- * reference) code. Also, Converting between UHC and NCR is enabled to print
- * unrecognized character that is out of KSX1001 range.
+ * KSC5601 pear 패키지는 한글과 관련된 변환 및 체크에 대한 method를 제공한다.
+ *
+ * UHC와 UTF8 또는 UHC와 UCS2, UHC(또는 CP949)와 NCR (Numeric character reference)
+ * 코드간의 변환을 제공하며, 또한 UHC와 NCR간의 변환은 KSX1001 범위 밖의 인식되지
+ * 못하는 문자를 출력 가능하게 한다.
+ *
+ * 그 외에 utf-8 여부 체크와 ksc5601 여부 체크가 가능하며, 다국어 처리를 위한
+ * substr을 제공한다.
  *
  * @category   Charset
  * @package    KSC5601
@@ -70,6 +74,17 @@ define ('NCR',    'ncr');
 
 /**
  * Main Class that support to convert character betwwen KSC5601 and UTF-8
+ *
+ * KSC5601 pear 패키지는 한글과 관련된 변환 및 체크에 대한 method를
+ * 제공한다.
+ *
+ * UHC와 UTF8 또는 UHC와 UCS2, UHC(또는 CP949)와 NCR (Numeric character
+ * reference) 코드간의 변환을 제공하며, 또한 UHC와 NCR간의 변환은 KSX1001
+ * 범위 밖의 인식되지 못하는 문자를 출력 가능하게 한다.
+ *
+ * 그 외에 utf-8 여부 체크와 ksc5601 여부 체크가 가능하며, 다국어 처리를
+ * 위한 substr을 제공한다.
+ *
  * @package KSC5601
  */
 Class KSC5601
@@ -93,8 +108,10 @@ Class KSC5601
 
 	// {{{ constructor
 	/**
-	 * Support iconv or mbstring extension, use KSC5601_ext internal class, or not
-	 * support use KSC5601_pure internal class.
+	 * iconv 또는 mbstring 확장이 지원되면, 내부적으로 KSC5601_ext class
+	 * 사용하며, 지원되지 않으면, KSC5601_pure class를 사용한다.
+	 *
+	 * 성능상으로는 iconv 또는 mbstring이 지원되는 것이 좋다.
 	 *
 	 * @access public
 	 * @return void
@@ -120,18 +137,20 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function out_of_ksx1001 ($flag = false)
+	// {{{ (boolean) KSC5601:: out_of_ksx1001 ($flag = false)
 	/**
-	 * Set whether convert hangul that is out of KSX1001 range. This method changes
-	 * private $out_ksx1001 variable.
+	 * KSX1001 범위 밖의 한글을 변환할 것인지 여부를 설정한다. 이 menotd는
+	 * private $out_ksx1001 변수값을 변경한다.
 	 *
 	 * @access  public
 	 * @return  boolean Return 
-	 * @param   boolean (optional) Defaults to false
+	 * @param   boolean (optional) 기본값 false
 	 *  <ol>
-	 *      <li>true : When decode UTF-8, convert to NCR from hangul character that is out of KSX1001 range.</li>
-	 *      <li>true : When encode NCR from UHC(CP949), convert to NCR with only hangul that is out of KSX1001 range.</li>
-	 *      <li>false : No action</li>
+	 *      <li>true : UTF-8 디코드시, KSX1001 범위 밖의 한글 문자를 NCR로
+	 *                 변환한다.
+	 *      <li>true : UHC(CP949)에서 NCR로 변환시, KSX1001 범위 밖의 한글
+	 *                 문자만 NCR로 변환한다.
+	 *      <li>false : 아무 액션을 하지 않는다.</li>
 	 *  </ol>
 	 */
 	function out_of_ksx1001 ($flag = false) {
@@ -139,27 +158,31 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function is_utf8 ($string, $ascii_only_check)
+	// {{{ (boolean) KSC5601:: is_utf8 ($string, $ascii_only_check)
 	/**
-	 * Check given string wheter utf8 or not.
+	 * 주어진 문자열이 utf8인지 아닌지를 검사한다.
 	 *
 	 * @access  public
-	 * @return  boolean Given string is utf8, return true.
-	 * @param   string  Given strings
-	 * @param   boolean Check whether is ascii only or not
+	 * @return  boolean utf-8 문자열 또는 ascii로만 구성이 된 문자열이이면
+	 *                  true를 반환한다.
+	 * @param   string  검사할 문자열
+	 * @param   boolean true로 설정시, 문자열이 ascii로만 구성되어 있으면
+	 *                  false를 반환한다.
 	 */
 	function is_utf8 ($string, $ascii_only_check = false) {
 		return $this->obj->is_utf8 ($string, $ascii_only_check);
 	}
 	// }}}
 
-	// {{{ function is_ksc5601 ($string)
+	// {{{ (boolean) KSC5601:: is_ksc5601 ($string)
 	/**
-	 * Check given string wheter ksc5601 oj not.
+	 * 주어진 2byte 문자가 ksc5601의 범위에 있는지 확인한다.
+	 *
+	 * 주의할 것은 문자열을 지정했을 경우 처음 2byte만 체크한다.
 	 *
 	 * @access  public
-	 * @return  boolean Given string is ksc5601, return true.
-	 * @param   string  Given strings
+	 * @return  boolean ksc5601의 범위 안에 있을 경우 true 반환
+	 * @param   string  2byte 문자
 	 */
 	function is_ksc5601 ($string, $ksx1001 = false) {
 		if ( strlen ($string) != 2 )
@@ -192,20 +215,22 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function is_ksx1001 ($string)
+	// {{{ (boolaen) KSC5601:: is_ksx1001 ($string)
 	/**
-	 * Check given string wheter ksx1001 oj not.
+	 * 주어진 2byte 문자가 ksx1001의 범위에 있는지 확인한다.
+	 *
+	 * 주의할 것은 문자열을 지정했을 경우 처음 2byte만 체크한다.
 	 *
 	 * @access  public
-	 * @return  boolean Given string is ksx1001, return true.
-	 * @param   string  Given strings
+	 * @return  boolean ksx1001의 범위 안에 있을 경우 true 반환
+	 * @param   string  2byte 문자
 	 */
 	function is_ksx1001 ($string) {
 		return self::is_ksc5601 ($string, true);
 	}
 	// }}}
 
-	// {{{ (string|false) substr ($str, $start, $len)
+	// {{{ (string|false) KSC5601:: substr ($str, $start, $len)
 	/**
 	 * 지정된 시작지점에서 지정될 길이만큼의 문자열을 반환한다.
 	 *
@@ -328,21 +353,24 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function utf8 ($string, $to = UTF8)
+	// {{{ (string) KSC5601:: utf8 ($string, $to = UTF8)
 	/**
 	 * Convert between UHC and UTF-8
+	 * UHC(CP949)와 UTF-8 간의 변환을 제공한다.
 	 *
 	 * @access  public
 	 * @return  string
-	 * @param   string  Given string.
-	 * @param   string  (optional) Defaults to UTF8. Value is UTF8 or UHC constant.
-	 *                  This parameter is not set or set with UTF8 constant, convert
-	 *                  given string to UTF-8.
+	 * @param   string  변환할 원본 문자열
+	 * @param   string  (optional) 기본값 UTF8. 사용할 수 있는 값으로 UTF8 또는
+	 *                  UHC 상수를 사용할 수 있다.
 	 *
-	 *                  Set to UHC constant, conert to uhc from utf-8. If intenal
-	 *                  $out_ksx1001 variable is set true that means call
-	 *                  KSC5601::out_of_ksx1001(true), convert to NCR hangul
-	 *                  that is out of KSX1001 range.
+	 *                  이 인자를 설정하지 않거나 또는 UTF8 상수로 설정을 하면,
+	 *                  원본 문자열을 UTF-8로 변환한다.
+	 *
+	 *                  UHC 상수로 설정하면, UTF-8에서 UHC로 변환한다. 내부적으로
+	 *                  KSC5601::out_of_ksx1001 (true) 코드에 의하여 private
+	 *                  $out_ksx1001 변수가 true로 설정이 되면, KSX1001 범위
+	 *                  밖의 문자에 대해서는 NCR로 변환을 한다.
 	 * @see KSC5601::out_of_ksx1001()
 	 */
 	function utf8 ($string, $to = UTF8) {
@@ -350,41 +378,55 @@ Class KSC5601
 	}
 	// }}}
 
-	// {{{ function ucs2 ($string, $to = UCS2, $asc = false)
+	// {{{ (string) ucs2 ($string, $to = UCS2, $asc = false)
 	/**
-	 * Convert between UHC and UCS2
+	 * UHC와 UCS2간의 변환을 제공한다.
 	 *
 	 * @access  public
 	 * @return  string
-	 * @param   string  Given string
-	 * @param   string  (optional) Detauls to UCS2. Value is UCS2 or UHC constants.
-	 *                  Set UCS2 constant, convert UHC to UCS2 hexical (for example, U+B620).
-	 *                  Set UHC constant, convert UCS2 hexical to UHC.
-	 * @param   boolean (optional) Defaults to false. This parameter is used only UHC -> UCS2 mode.
-	 *                  Set true, convert all characters to UCS2 hexical. Set false, only convert
-	 *                  hangul that is out of KSX1001 range to UCS hexical.
+	 * @param   string  원본 문자열
+	 * @param   string  (optional) 기본값 UCS2. 사용할 수 있는 값으로 UCS2 또는
+	 *                  UHC 상수를 사용할 수 있따.
+	 *
+	 *                  UCS2 상수로 설정을 하면, UHC를 UCS2 16진수(예를 들면
+	 *                  U+B620)로 변환을 한다.
+	 *
+	 *                  UHC로 설정을 하면, UC2 16진수 문자를 UHC로 변환한다.
+	 * @param   boolean (optional) 기본값 false. 이 파라미터는 오직 두번째
+	 *                  파라미터가 UCS2일 경우에만 작동한다.
+	 *
+	 *                  false로 설정이 되면, KSX1001 범위 밖의 한글만 UCS2
+	 *                  16진수 값으로 변환한다.
 	 */
 	function ucs2 ($string, $to = UCS2, $asc = false) {
 		return $this->obj->ucs2 ($string, $to, $asc);
 	}
 	// }}}
 
-	// {{{ function ncr ($string, $to = NCR, $enc = false)
+	// {{{ (string) ncr ($string, $to = NCR, $enc = false)
 	/**
-	 * Convert between UHC and NCR (Numeric Code Reference)
+	 * UHC와 NCR(Numeric Code Reference)간의 변환을 제공한다.
 	 *
 	 * @access  public
 	 * @return  string
-	 * @param   string  Given string
-	 * @param   string  (optional) Defaults to NCR constant. Value is NCR or UHC constants.
-	 *                  Set NCR constant, convert UHC(CP949) to NCR code. Set UHC constant,
-	 *                  convert NCR code to UHC(cp949).
-	 * @param   boolean (optional) Defaults to false. This parameter is used only UHC -> NCR mode.
-	 *                  Set false, only convert hangul that is out of KSX1001 range to NCR
-	 *                  when internal $out_ksx1001 variable set true that meas called
-	 *                  KSC5601::out_of_ksx1001(true).
+	 * @param   string  원본 문자열
+	 * @param   string  (optional) 기본값 NCR. 사용할 수 있는 값으로 NCR 또는
+	 *                  UHC 상수를 사용할 수 있다.
 	 *
-	 *                  Set true, convert all character to NCR code.
+	 *                  NCR 상수로 설정이 되면, UHC(CP949)를 NCR 코드로
+	 *                  변환한다.
+	 *
+	 *                  UHC 상수로 설정이 되면, NCR 코드를 UHC(CP949)로
+	 *                  변환한다.
+	 * @param   boolean (optional) 기본값 false. 이 파라미터는 두번째 파라미터가
+	 *                  NCR일 경우에만 작동한다.
+	 *
+	 *                  false로 설정되면, KSC5601::out_of_ksx1001(true)가 호출이
+	 *                  되어 내부적으로 private $out_ksx1001 변수의 값이 true로
+	 *                  설정이 되었을 경우, KX1001 범위 밖의 한글만 NCR로
+	 *                  변환한다.
+	 *
+	 *                  true로 설정이 되면 모든 문자를 NCR 코드로 변환한다.
 	 */
 	function ncr ($string, $to = NCR, $enc = false) {
 		return $this->obj->ncr ($string, $to, $enc);
@@ -393,8 +435,8 @@ Class KSC5601
 
 	// {{{ function make_reverse_table ()
 	/**
-	 * Print php code for KSC5601 reverse table
-	 * This method is used only developer for KSC5601 pure code.
+	 * KSC5601의 역변환 테이블을 PHP code로 출력한다.
+	 * 이 method는 KSC5601 pure code 개발을 위해서만 필요하다.
 	 *
 	 * @access public
 	 * @return void
