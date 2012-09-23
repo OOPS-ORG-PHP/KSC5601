@@ -183,6 +183,7 @@ Class KSC5601
 	 * @access  public
 	 * @return  boolean ksc5601의 범위 안에 있을 경우 true 반환
 	 * @param   string  2byte 문자
+	 * @param   boolean 사용하지 않음. 기본값 false
 	 */
 	function is_ksc5601 ($string, $ksx1001 = false) {
 		if ( strlen ($string) != 2 )

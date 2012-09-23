@@ -12,7 +12,7 @@
 		<active>yes</active>
 	</lead>
 	<date>2012-09-24</date>
-	<time>05:28:50</time>
+	<time>05:32:12</time>
 	<version>
 		<release>2.0.2</release>
 		<api>2.0.2</api>
@@ -36,7 +36,7 @@
 			<file role="php" md5sum="3705f104bc802122e7538feb64822133" name="KSC5601/UCS2.php" />
 			<file role="php" md5sum="6c34210860e10e3daf39ecd8b0130450" name="KSC5601/UTF8.php" />
 			<file role="php" md5sum="bfe8a611b5d1b95356dd745488125180" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="ff095be68bf4f8b64804fe6503e70e7b" name="KSC5601.php" />
+			<file role="php" md5sum="c22e95998846ed394a2a28d69c4152a3" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
