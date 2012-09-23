@@ -210,12 +210,12 @@ Class KSC5601
 	 * 지정된 시작지점에서 지정될 길이만큼의 문자열을 반환한다.
 	 *
 	 * EUC-KR과 UTF-8을 모두 지원하며, UTF-8 CJK 문자열의 경우 3byte 문자는
-	 * 길이를 * 2byte로 계산하여 반환한다. (2byte utf-8은 지원하지 않는다.)
+	 * 길이를 2byte로 계산하여 반환한다. (2byte utf-8은 지원하지 않는다.)
 	 *
 	 * UTF-8 문자열 처리의 경우, CJK(Chinese, Japanese, Korean) 모두 처리
 	 * 가능 하며 non UTF-8의 경우 EUC-KR과 EUC-JP에 사용 가능하다.
 	 *
-	 * 이 외의 동작은 PHP core의 {@link php.net/manual/en/function.substr.php substr}
+	 * 이 외의 동작은 PHP core의 {@link http://php.net/manual/en/function.substr.php substr()}
 	 * 함수와 동일하게 동작한다.
 	 *
 	 * @access public
