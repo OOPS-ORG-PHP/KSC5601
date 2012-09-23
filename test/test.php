@@ -119,6 +119,25 @@ echo "=>  " . mtime ($t1, $t2) . " sec\n";
 #echo uniencode_lib ($ksc, 'U+') . "\n";
 #echo unidecode_lib ($ucs, 'euc-kr', 'U+') . "\n";
 
+/*
+ * substr UTF8
+ */
+$string = "2012.08.09 부터 OOPS에 무상 지원";
+
+pr ('--                      ', " |123456789|123456789|123456789|12345 ");
+pr ('원문                    ', '\'' . $string . '\'');
+pr ('substr ($s, 0, 26)      ', '\'' . substr ($string, 0, 26) . '\'');
+pr ('obj->substr ($s, 0, 26) ', '\'' . $obj->substr ($string, 0, 26) . '\'');
+pr ('substr ($s, 0, 16)      ', '\'' . substr ($string, 0, 16) . '\'');
+pr ('obj->substr ($s, 0, 16) ', '\'' . $obj->substr ($string, 0, 16) . '\'');
+pr ('substr ($s, 22, 26)     ', '\'' . substr ($string, 22, 26) . '\'');
+pr ('obj->substr ($s, 22, 26)', '\'' . $obj->substr ($string, 22, 26) . '\'');
+pr ('substr ($s, 14, 10)     ', '\'' . substr ($string, 14, 10) . '\'');
+pr ('obj->substr ($s, 14, 10)', '\'' . $obj->substr ($string, 14, 10) . '\'');
+pr ('substr ($s, -8, 6)      ', '\'' . substr ($string, -8, 6) . '\'');
+pr ('obj->substr ($s, -8, 6) ', '\'' . $obj->substr ($string, -8, 6) . '\'');
+echo "\n";
+
 $time2 = microtime ();
 
 echo "=>  " . mtime ($time1, $time2) . " sec\n";

@@ -204,6 +204,129 @@ Class KSC5601
 	}
 	// }}}
 
+	// {{{ (string|false) substr ($str, $start, $len)
+	/**
+	 * 지정된 시작지점에서 지정될 길이만큼의 문자열을 반환한다.
+	 *
+	 * EUC-KR과 UTF-8을 모두 지원하며, UTF-8 CJK 문자열의 경우 3byte 문자는
+	 * 길이를 * 2byte로 계산하여 반환한다. (2byte utf-8은 지원하지 않는다.)
+	 *
+	 * UTF-8 문자열 처리의 경우, CJK(Chinese, Japanese, Korean) 모두 처리
+	 * 가능 하며 non UTF-8의 경우 EUC-KR과 EUC-JP에 사용 가능하다.
+	 *
+	 * 이 외의 동작은 PHP core의 {@link php.net/manual/en/function.substr.php substr}
+	 * 함수와 동일하게 동작한다.
+	 *
+	 * @access public
+	 * @return string|false
+	 * @param  string  원본 문자열
+	 * @param  integer 시작 지점. 0부터 시작한다.
+	 * @param  integer 반환할 문자열 길이
+	 */
+	function substr ($str, $start, $len) {
+		if ( $len === 0 ) return false;
+
+		if ( ! self::is_utf8 ($str) ) {
+			$slen = strlen ($str);
+			if ( $start < 0 )
+				if ( ($start = $slen + $start) < 0 )
+					return false;
+
+			if ( $start > 0 ) {
+				if ( ord ($str[$start]) > 128 )
+					if ( ! self::is_ksc5601 (substr ($str, $start, 2)) )
+						$start--;
+			}
+
+			if ( ($str = substr ($str, $start, $len)) === false )
+				return false;
+
+
+			return preg_replace ('/(([\x80-\xFE].)*)[\x80-\xFE]?$/', '\\1', $str);
+		}
+
+		//
+		// Hangul Jamo                           0x1100 - 0x11ff
+		// Hangul Compatibility Jamo             0x3130 - 0x318f
+		// Hangul Syllables (한글)               0xac00 - 0xd7af
+		//
+		// Hiragana                              0x30a0 - 0x30ff
+		// Katakana                              0x3100 - 0x312f
+		// Katakana Phonetic Extensions          0x31f0 - 0x31ff
+		// 
+		// CJK Radicals Supplement               0x2e80 - 0x2eff
+		// CJK Symbols and Punctuation           0x3000 - 0x303f
+		// * Enclosed CJK Letters and Months     0x3200 - 0x32ff
+		// * CJK Compatibility                   0x3300 - 0x33ff
+		// CJK Unified Ideographs Extension A    0x3400 - 0x4dbf
+		// * CJK Unified Ideographs (한자)       0x4e00 - 0x9fff
+		// CJK Compatibility Ideographs          0xf900 - 0xfaff
+		// CJK Compatibility Forms               0xfe30 - 0xfe4f
+		// CJK Unified Ideographs Extension B    0x20000 - 0x2a6df
+		//
+		$pattern = '\x{1100}-\x{11ff}}\x{3130}-\x{318f}\x{ac00}-\x{d7af}'; // Hnagul
+		$pattern .= '\x{30a0}-\x{30f0}\x{3100}-\x{312f}\x{31f0}-\x{31ff}'; // Japanese
+		$pattern .= '\x{3200}-\x{32ff}\x{3300}-\x{33ff}\x{3400}-\x{4dbf}'; // Hanja
+		$pattern .= '\x{4e00}-\x{9fff}\x{f900}-\x{faff}\x{20000}-\x{2a6df}'; // Hanja
+		preg_match_all ("/[{$pattern}]|./u", $str, $matches_all);
+		$matches = $matches_all[0];
+
+		// 3byte 문자를 2byte로 계산해서 문자열 길이를 구함
+		for ( $i=0; $i<count ($matches); $i++ )
+			$slen += (strlen ($matches[$i]) > 1) ? 2 : 1;
+
+		// $start가 음수일 경우 양수로 변환
+		if ( $start < 0 )
+			if ( ($start = $slen + $start) < 0 )
+				return false;
+
+		if ( $start >= $slen )
+			return false;
+
+		// 반환할 길이가 문자열 길이보다 길면 문자열 길이로 조정
+		if ( $len > $slen )
+			$len = $slen;
+
+		// len이 음수일 경우 양수로 변환
+		if ( $len < 0 )
+			if ( ($len = $slen + $len) < 0 )
+				return false;
+		
+		if ( $start > 0 ) {
+			if ( $start + $len > $slen )
+				$len = $slen - $start;
+
+			$no = count ($matches);
+			for ( $i=0; $i<$no; $i++ ) {
+				$buf = array_shift ($matches);
+				$blen = strlen ($buf);
+				$count += ($blen > 1) ? 2 : 1;
+				if ( $count > $start ) {
+					array_unshift ($matches, $buf);
+					break;
+				}
+				$slen -= ($blen > 1) ? 2 : 1;
+			}
+		} else {
+			for ( $i=0; $i<count ($matches); $i++ )
+				$slen += (strlen ($matches[$i]) > 1) ? 2 : 1;
+				
+			if ( $slen <= $len )
+				return $str;
+		}
+
+		$count = 0;
+		foreach ( $matches as $v ) {
+			$count += (strlen ($v) > 2) ? 2 : 1;
+			if ( $count > $len )
+				break;
+			$r .= $v;
+		}
+
+		return $r;
+	}
+	// }}}
+
 	// {{{ function utf8 ($string, $to = UTF8)
 	/**
 	 * Convert between UHC and UTF-8
