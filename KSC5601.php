@@ -73,8 +73,6 @@ define ('NCR',    'ncr');
 //}}}
 
 /**
- * Main Class that support to convert character betwwen KSC5601 and UTF-8
- *
  * KSC5601 pear 패키지는 한글과 관련된 변환 및 체크에 대한 method를
  * 제공한다.
  *
@@ -184,6 +182,7 @@ Class KSC5601
 	 * @return  boolean ksc5601의 범위 안에 있을 경우 true 반환
 	 * @param   string  2byte 문자
 	 * @param   boolean 사용하지 않음. 기본값 false
+	 * @since   version 2.0.1
 	 */
 	function is_ksc5601 ($string, $ksx1001 = false) {
 		if ( strlen ($string) != 2 )
@@ -225,6 +224,7 @@ Class KSC5601
 	 * @access  public
 	 * @return  boolean ksx1001의 범위 안에 있을 경우 true 반환
 	 * @param   string  2byte 문자
+	 * @since   version 2.0.1
 	 */
 	function is_ksx1001 ($string) {
 		return self::is_ksc5601 ($string, true);
@@ -245,6 +245,7 @@ Class KSC5601
 	 * 함수와 동일하게 동작한다.
 	 *
 	 * @access public
+	 * @since  버전 2.0.2
 	 * @return string|false
 	 * @param  string  원본 문자열
 	 * @param  integer 시작 지점. 0부터 시작한다.
@@ -373,6 +374,7 @@ Class KSC5601
 	 *                  $out_ksx1001 변수가 true로 설정이 되면, KSX1001 범위
 	 *                  밖의 문자에 대해서는 NCR로 변환을 한다.
 	 * @see KSC5601::out_of_ksx1001()
+	 * @since version 2.0.2, 이전 버전에서는 KSC5601::out_of_ksc1001()
 	 */
 	function utf8 ($string, $to = UTF8) {
 		return $this->obj->utf8 ($string, $to);
