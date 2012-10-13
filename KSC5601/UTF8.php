@@ -1,63 +1,48 @@
 <?php
-/**
- * KSC5601 UTF8 internal API for pure code
+/*
+ * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
+ * 
+ * All rights reserved.
  *
- * @category   Charset
- * @package    KSC5601
- * @subpackage KSC5601_pure
- * @author     JoungKyun.Kim <http://oops.org>
- * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
- * @link       http://pear.oops.org/package/KSC5601
- * @filesource
- */
-
-/**
- * import High level API for convert character set
- */
-require_once 'KSC5601/Stream.php';
-
-/**
- * Only PHP don't support iconv/mbstring, UCS2.php is needed 
- */
-if ( EXTMODE === false ) {
-	/**
-     * import API class that controls UCS2
-	 */
-	require_once 'KSC5601/UCS2.php';
-} else {
-	/**
-	 * If needless USC2.php, define dummy class for compotable
-	 * @package KSC5601
-	 * @ignore
-	 */
-	Class KSC5601_UCS2 {}
-}
-
-/**
- * UTF8 controle class api
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
  *
- * @package KSC5601
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the authors nor the names of its contributors
+ *       may be used to endorse or promote products derived from this software
+ *       without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * $Id: UTF8.php,v 1.5 2009-03-15 16:56:02 oops Exp $
  */
+
+Require_once 'KSC5601/Stream.php';
+require_once 'KSC5601/UCS2.php';
+
 class KSC5601_UTF8 extends KSC5601_UCS2
 {
-	// {{{ properties
-	/**
-	 * Whether print debug message
-	 *
-	 * @access private
-	 */
 	private $debug = false;
-	// }}}
+	public $iconv = true;
+	public $mbstring = true;
 
-	// {{{ function rm_utf8bom ($s)
-	/**
+	/*
 	 * remove utf8 bom code (first 3byte)
-	 *
-	 * @access public
-	 * @return string
-	 * @param  string Given strings
 	 */
 	function rm_utf8bom ($s) {
 		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
@@ -65,35 +50,26 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 		return $s;
 	}
-	// }}}
 
-	// {{{ function is_utf8 ($s, $ascii)
-	/**
+	/*
 	 * whether utf8 or not given strings
-	 *
-	 * @access public
-	 * @return boolean If given strings ars utf-8, return true
-	 * @param  string  Given strings
-	 * @param  boolean Check whether is ascii only or not
 	 */
-	function is_utf8 ($s, $ascii = false) {
+	function is_utf8 ($s) {
 		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
-			return true;
+			return 1;
 
-		$ascii_status = true;
 		$l = strlen ($s);
 
 		for ( $i=0; $i<$l; $i++ ) {
 			# if single byte charactors, skipped
 			if ( ! (ord ($s[$i]) & 0x80) )
 				continue;
-			$ascii_status = false;
 
-			$first = KSC5601_Stream::chr2bin ($s[$i]);
+			$first = $this->chr2bin ($s[$i]);
 
 			# first byte of utf8 is must start 11
 			if ( substr ($first, 0, 2) == '10' )
-				return false;
+				return 0;
 
 			# except 1st byte
 			$byte = strlen (preg_replace ('/^([1]+).*/', '\\1', $first));
@@ -110,45 +86,34 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 			/*
 			 * 2byte: 1100000x (10xxxxxx)
-			 * 3byte: 11100000 10xxxxxx (10xxxxxx)
-			 * 4byte: 11110000 10xxxxxx (10xxxxxx 10xxxxxx)
-			 * 5byte: 11111000 10xxxxxx (10xxxxxx 10xxxxxx 10xxxxxx)
-			 * 6byte: 11111100 10xxx0xx (10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx)
+			 * 3byte: 11100000 100xxxxx (10xxxxxx)
+			 * 4byte: 11110000 1000xxxx (10xxxxxx 10xxxxxx)
+			 * 5byte: 11111000 10000xxx (10xxxxxx 10xxxxxx 10xxxxxx)
+			 * 6byte: 11111100 100000xx (10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx)
 			 */
 			for ( $j=1; $j<$byte; $j++ ) {
-				/*
 				if ( $j == 1 ) {
 					$n = 8 - $byte;
-					if ( KSC5601_Stream::chr2bin ($s[$i+1], ">>$n") != KSC5601_Stream::check2byte ($byte) )
-						return false;
+					if ( $this->chr2bin ($s[$i+1], ">>$n") != $this->check2byte ($byte) )
+						return 0;
 
 					continue;
 				}
-				 */
 
-				if ( KSC5601_Stream::chr2bin ($s[$i+$j], '>>6') != 10 )
-					return false;
+				if ( $this->chr2bin ($str[$i+$j], '>>6') != 10 )
+					return 0;
 			}
 
 			break;
 		}
 
-		if ( $ascii && $ascii_status )
-			return false;
-
-		return true;
+		return 1;
 	}
-	// }}}
 
-	// {{{ function utf8enc ($s)
-	/**
-	 * convert UCH to UTF-8
-	 *
-	 * @access public
-	 * @return string UTF-8 strings
-	 * @param  string Given UHC strings
-	 */
 	function utf8enc ($s) {
+		if ( ($r = $this->extfunc (UHC, UTF8, $s)) !== false ) 
+			return $r;
+
 		$len = strlen ($s);
 
 		for ( $i=0; $i<$len; $i++ ) {
@@ -180,17 +145,11 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 		return $r;
 	}
-	// }}}
 
-	// {{{ function utf8dec ($s)
-	/**
-	 * Convert UTF-8 to UHC
-	 *
-	 * @access public
-	 * @return string UHC strings
-	 * @param  string Given UTF-8 strings
-	 */
 	function utf8dec ($s) {
+		if ( ($r = $this->extfunc (UTF8, UHC, $s)) !== false ) 
+			return $r;
+
 		$s = $this->rm_utf8bom ($s);
 		$l = strlen ($s);
 
@@ -226,7 +185,6 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 		return $r;
 	}
-	// }}}
 }
 
 /*

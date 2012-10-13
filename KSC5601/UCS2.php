@@ -1,63 +1,55 @@
-<?php
-/**
- * API class that controls UCS2 for KSC5601 package
+<?
+/*
+ * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
+ * 
+ * All rights reserved.
  *
- * @category   Charset
- * @package    KSC5601
- * @subpackage KSC5601_pure
- * @author     JoungKyun.Kim <http://oops.org>
- * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
- * @link       http://pear.oops.org/package/KSC5601
- * @filesource
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the authors nor the names of its contributors
+ *       may be used to endorse or promote products derived from this software
+ *       without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * $Id: UCS2.php,v 1.3 2009-03-15 16:56:02 oops Exp $
  */
 
-/**
- * import High level API for convert character set
- */
 require_once 'KSC5601/Stream.php';
 
-/**
- * API class that controls UCS2 for KSC5601 package
- *
- * @package KSC5601
- */
 Class KSC5601_UCS2 extends KSC5601_Stream
 {
-	// {{{ properties
-	/**#@+
-	 * @access public
-	 */
 	public $ksc     = NULL;
 	public $hanja   = NULL;
 	public $revs    = NULL;
 	public $ksc_max = 0;
 	public $han_max = 0;
 	public $rev_max = 0;
-	/**#@-*/
-	// }}}
+	public $ksx1001 = true;
 
-	// {{{ constructor
-	/**
-	 * @access public
-	 * @return void
-	 */
 	function __construct () {
 		$this->init_ksc5601 ();
 	}
-	// }}}
 
-	// {{{ function init_ksc5601 ()
-	/**
-	 * Init KSC5601 code table
-	 *
-	 * If use pure code, load KSC5601 code table on memory. If loading,
-	 * skip.
-	 *
-	 * @access public 
-	 * @return void
-	 * @param  void
+	/*
+	 * init char table
 	 */
 	function init_ksc5601 () {
 		if ( $this->ksc != NULL ) {
@@ -91,17 +83,10 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		$this->han_max = count ($this->hanja);
 		$this->rev_max = count ($this->revs);
 	}
-	// }}}
 
-	// {{{ function ksc2ucs ($c1, $c2)
-	/**
-	 * Convert KSC5601 to UCS2
+	/*
+	 * KSC5601 -> UCS2
 	 * return decimical value or question mark '?'
-	 *
-	 * @access public
-	 * @return string decimal string(42531) or question mark(?) that is case out of range.
-	 * @param  string 1st byte binary character
-	 * @param  string 2st byte binary character
 	 */
 	function ksc2ucs ($c1, $c2) {
 		$this->init_ksc5601 ();
@@ -138,15 +123,9 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 		return $this->ksc[$idx];
 	}
-	// }}}
 
-	// {{{ function ucs2ksc ($s)
-	/**
-	 * Convert UCS2 to KSC5601
-	 *
-	 * @access public
-	 * @return string 2byte binary character (KSC5601)
-	 * @param  string hexcial strings (UCS2)
+	/*
+	 * UCS4 -> KSC5601
 	 */
 	function ucs2ksc ($s) {
 		$this->init_ksc5601 ();
@@ -169,28 +148,17 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		$k1 = $idx >> 8;
 		$k2 = $idx & 0x00ff;
 
-		# out of KSX 1001 range in CP949/UHC
-		if ( $this->out_ksx1001 === true ) {
-			if ( $this->is_out_of_ksx1001 ($k1, $k2, true) ) {
-				$hex = dechex ($this->ksc2ucs (chr ($k1), chr ($k2)));
-				return '&#x' . strtoupper ($hex) . ';';
-			}
+		# KSX 1001 range
+		if ( $this->ksx1001 === true ) {
+			if ( (($k1 > 0x80 && $k1 < 0xa1) && ($k2 > 0x40 && $k2 < 0xff)) ||
+				 (($k1 > 0xa0 && $k1 < 0xc7) && ($k2 > 0x40 && $k2 < 0xa1)) ) {
+				return '&#' . $this->ksc2ucs (chr ($k1), chr ($k2)) . ';';
+			 }
 		}
 
 		return chr ($k1) . chr ($k2);
 	}
-	// }}}
 
-	// {{{ function mk_revTable () {
-	/**
-	 * Print converting code from hexical string(UCS2) to 2byte binary(KSC5601) character.
-	 *
-	 * This method only for develeoper.
-	 *
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
 	function mk_revTable () {
 		$this->init_ksc5601 ();
 
@@ -264,7 +232,6 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 		echo ");\n?>\n";
 	}
-	// }}}
 }
 
 /*

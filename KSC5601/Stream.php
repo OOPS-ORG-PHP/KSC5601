@@ -1,43 +1,63 @@
 <?php
-/**
- * High level API for convert character set
+/*
+ * Copyright (c) 2008, JoungKyun.Kim <http://oops.org>
+ * 
+ * All rights reserved.
  *
- * This api is high level api that convert between binary and numeric
- * for convert character set with PHP
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
  *
- * @category   Charset
- * @package    KSC5601
- * @subpackage KSC5601_pure
- * @author     JoungKyun.Kim <http://oops.org>
- * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
- * @link       http://pear.oops.org/package/KSC5601
- * @filesource
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the authors nor the names of its contributors
+ *       may be used to endorse or promote products derived from this software
+ *       without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * $Id: Stream.php,v 1.2 2009-03-15 16:56:02 oops Exp $
  */
 
-/**
- * High level API for convert character set
- *
- * This api is high level api that convert between binary and numeric
- * for convert character set with PHP
- *
- * @package KSC5601
- */
 class KSC5601_Stream
 {
-	// {{{ function chr2hex ($c, $prefix = true, $dec = false)
-	/**
-	 * Convert character to hex string
-	 *
-	 * @access public
-	 * @return string  hexical strings or decimal strings
-	 * @param  string  1 byte binary character
-	 * @param  string  (optional) Defaults to true. Set ture, retuan with
-	 *                 prefix '0x'
-	 * @param  boolean (optional) Defaults to false. Set true, return with
-	 *                 decimal strings.
-	 */
+	function is_iconv () {
+		return ( extension_loaded ('iconv') && $this->iconv ) ? true : false;
+	}
+
+	function is_mbstring () {
+		return ( extension_loaded ('mbstring') && $this->mbstring ) ? true : false;
+	}
+
+	function is_extfunc () {
+		if ( $this->is_iconv () === true || $this->is_mbstring () === true )
+			return true;
+		return false;
+	}
+
+	function extfunc ($from, $to, $str) {
+		if ( $this->is_iconv () === true )
+			return iconv ($from, $to, $str);
+
+		if ( $this->is_mbstring () === true )
+			return mb_convert_encoding ($str, $to, $from);
+
+		return false;
+	}
+
 	function chr2hex ($c, $prefix = true, $dec = false) {
 		$prefix = $prefix ? '0x' : '';
 		if ( $dec === true )
@@ -50,46 +70,18 @@ class KSC5601_Stream
 		}
 		return $prefix . $r;
 	}
-	// }}}
 
-	// {{{ function hex2chr ($c)
-	/**
-	 * Convert hexical string to 1 byte binary character.
-	 *
-	 * @access public
-	 * @return string 1 byte binary character
-	 * @param  string hexical string
-	 */
 	function hex2chr ($c) {
 		return chr (hexdec ($c));
 	}
-	// }}}
 
-	// {{{ function chr2dec ($c)
-	/**
-	 * Convert 1 byte binary character to decimal strings.
-	 *
-	 * @access public
-	 * @return Decimal strings
-	 * @param string  1 byte binary character
-	 */
 	function chr2dec ($c) {
 		return ord ($c);
 	}
-	// }}}
 
-	// {{{ function chr2bin ($c, $shift = '')
-	/**
-	 * Convert binary character 1 byte to binary(numeric) strings
-	 *
-	 * @access public
-	 * @return binary strings
-	 * @param string  1 byte binary character
-	 * @param string  (optional) Defaults to empty. shift string with '>> [N]' or '<< [N]'
-	 */
 	function chr2bin ($c, $shift = '') {
 		if ( preg_match ('/^(U\+|0x)/', $c) )
-			$c = KSC5601_Stream::hex2chr ($c);
+			$c = $this->hex2chr ($c);
 
 		$c = ord ($c);
 
@@ -115,43 +107,15 @@ class KSC5601_Stream
 
 		return $c;
     }
-	// }}}
 
-	// {{{ function bin2chr ($c)
-	/**
-	 * Convert binary strings to 1byte binary character
-	 *
-	 * @access public
-	 * @return string  1byte binary character
-	 * @param  string  binary strings
-	 */
 	function bin2chr ($c) {
 		return chr (bindec ($c));
 	}
-	// }}}
 
-	// {{{ function check2byte ($byte)
-	/**
-	 * byte 에 따른 UTF8의 2 번째 byte 표본을 반환
-	 *
-	 * @access public
-	 * @param string $byte 체크 할 byte
-	 * @return 2진 문자열
-	 */
 	function check2byte ($byte) {
 		return decbin (0x80 >> (8 - $byte));
 	}
-	// }}}
 
-	// {{{ function decbin ($s, $bit = 4)
-	/**
-	 * Convert decimal strings to 4-digit binary(numeric) strings.
-	 *
-	 * @access public
-	 * @return {$bit}-digit binary strings
-	 * @param string  Given decimal strings
-	 * @param numeric (optiona) Defaults to 4. number of digit.
-	 */
 	function decbin ($s, $bit = 4) {
 		$r = decbin ($s);
 		$l = strlen ($r);
@@ -161,58 +125,13 @@ class KSC5601_Stream
 
 		return $r;
 	}
-	// }}}
 
-	// {{{ function is_out_of_ksx1001 ($c1, $c2, $is_dec = false)
-	/**
-	 * Check given 2byte is whether KSX1001 or out of range.
-	 *
-	 * @access public
-	 * @return boolean When out of range, true.
-	 * @param string  1st byte binary character
-	 * @param string  2st byte binary character
-	 * @param boolean (optional) Defaults to false. If type of 1st and 2st arguments
-	 *                is decimal, set true.
-	 */
-	function is_out_of_ksx1001 ($c1, $c2, $is_dec = false) {
-		if ( ! $c1 || ! $c2 )
-			return false;
-
-		if ( $is_dec === false ) {
-			$c1 = ord ($c1);
-			$c2 = ord ($c2);
-		}
-
-		if ( (($c1 > 0x80 && $c1 < 0xa1) && ($c2 > 0x40 && $c2 < 0x5b )) ||
-			 (($c1 > 0x80 && $c1 < 0xa1) && ($c2 > 0x60 && $c2 < 0x7b )) ||
-			 (($c1 > 0x80 && $c1 < 0xa1) && ($c2 > 0x80 && $c2 < 0xff )) ||
-			 (($c1 > 0xa0 && $c1 < 0xc6) && ($c2 > 0x40 && $c2 < 0x5b )) ||
-			 (($c1 > 0xa0 && $c1 < 0xc6) && ($c2 > 0x60 && $c2 < 0x7b )) ||
-			 (($c1 > 0xa0 && $c1 < 0xc6) && ($c2 > 0x80 && $c2 < 0xa1 )) ||
-			 ($c1 == 0xc6 && ($c2 > 0x40 && $k < 0x53)) ) {
-			return true;
-		}
-
-		return false;
-	}
-	// }}}
-
-	// {{{ function execute_time ($t1, $t2)
-	/**
-	 * Print execute time
-	 *
-	 * @access public
-	 * @return string
-	 * @param array microtime() of starting
-	 * @param array microtime() of ending
-	 */
 	function execute_time ($t1, $t2) {
 		$start = explode (' ', $t1);
 		$end   = explode (' ', $t2);
 
 		return sprintf("%.2f", ($end[1] + $end[0]) - ($start[1] + $start[0]));
 	}
-	// }}}
 }
 
 /*

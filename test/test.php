@@ -12,101 +12,69 @@ function pr ($title, $msg) {
 $time1 = microtime ();
 
 $cli = ( php_sapi_name () == 'cli' ) ? true : false;
+$test = false;
 
 if ( $cli !== true ) {
 	header('Content-Type: text/html');
 	echo "<pre>";
 }
 
-if ( file_exists ('../KSC5601.php') ) {
-	# 하위 디렉토리에 KSC5601.php 가 존재할 경우, source tree에서의 테스트로
-	# 간주하여, include_path에 현재 디렉토리의 파일을 가장 우선시 시키고,
-	# 하위 디렉토리로 이동
+if ( $test === true ) {
 	$path = ini_get ('include_path');
-	$path = '.:' . $path;
+	$path .= ':..';
 	ini_set ('include_path', $path);
-
-	chdir ('..');
 }
 
 require_once 'KSC5601.php';
 
-
-/*
- * TEST CODE START
- */
-
-
 $obj = new KSC5601;
-
-# 표시할 수 없는 KSX1001 범위 밖의 문자 (CP949/UHC 확장 영역) 를 
-# NCR code 로 변경 한다.
-#$obj->out_of_ksx1001 (true);
+$obj->usepure ();
+#$obj->noKSX1001 ();
 
 $t1 = microtime ();
-$ksc = file_get_contents ('./test/test.txt');
+$ksc = file_get_contents ('./test.txt');
 
-pr ('원문', $ksc);
+pr ('����', $ksc);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
-/*
- * Convert EUC-KR(or UHC/CP949) to UTF8
- */
 $t1 = microtime ();
-$utf = $obj->utf8 ($ksc, UTF8);
+$utf = $obj->toutf8 ($ksc);
 
 pr ('UTF8', $utf);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
-/*
- * Convert UTF8 to UHC/CP949
- *
- * todo : utf8 -> UHC/CP949 처리
- *
- */
 $t1 = microtime ();
-$ksc1 = $obj->utf8 ($utf, EUC-KR);
+$ksc1 = $obj->toksc5601 ($utf);
 
 pr ('KSC', $ksc1);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
-/*
- * convert EUC-KR (or UHC/CP949) to UCS2
- */
 $t1 = microtime ();
-$ucs = $obj->ucs2 ($ksc, UCS2);
+$ucs = $obj->toucs2 ($ksc);
 
 pr ('UCS2', $ucs);
 $t2 = microtime ();
+echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
-/*
- * convert UCS2 to UHC/CP949
- */
 $t1 = microtime ();
-$ducs = $obj->ucs2 ($ucs, UHC);
+$ducs = $obj->todeucs2 ($ucs);
 
 pr ('DUCS2', $ducs);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
-/*
- * conver EUC-KR (or UHC/CP949) to NCR
- */
 $t1 = microtime ();
-$ncr = $obj->ncr ($ksc, NCR);
+$ncr = $obj->toncr ($ksc, true);
 
 pr ('NCR', $ncr);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
-/*
- * convert NCR to UHC/CP949
- */
 $t1 = microtime ();
-$dncr = $obj->ncr ($ncr, UHC);
+$dncr = $obj->todencr ($ncr);
 
 pr ('DNCR', $dncr);
 $t2 = microtime ();
@@ -119,27 +87,7 @@ echo "=>  " . mtime ($t1, $t2) . " sec\n";
 #echo uniencode_lib ($ksc, 'U+') . "\n";
 #echo unidecode_lib ($ucs, 'euc-kr', 'U+') . "\n";
 
-/*
- * substr UTF8
- */
-$string = "2012.08.09 부터 OOPS에 무상 지원";
-
-pr ('--                      ', " |123456789|123456789|123456789|12345 ");
-pr ('원문                    ', '\'' . $string . '\'');
-pr ('substr ($s, 0, 26)      ', '\'' . substr ($string, 0, 26) . '\'');
-pr ('obj->substr ($s, 0, 26) ', '\'' . $obj->substr ($string, 0, 26) . '\'');
-pr ('substr ($s, 0, 16)      ', '\'' . substr ($string, 0, 16) . '\'');
-pr ('obj->substr ($s, 0, 16) ', '\'' . $obj->substr ($string, 0, 16) . '\'');
-pr ('substr ($s, 22, 26)     ', '\'' . substr ($string, 22, 26) . '\'');
-pr ('obj->substr ($s, 22, 26)', '\'' . $obj->substr ($string, 22, 26) . '\'');
-pr ('substr ($s, 14, 10)     ', '\'' . substr ($string, 14, 10) . '\'');
-pr ('obj->substr ($s, 14, 10)', '\'' . $obj->substr ($string, 14, 10) . '\'');
-pr ('substr ($s, -8, 6)      ', '\'' . substr ($string, -8, 6) . '\'');
-pr ('obj->substr ($s, -8, 6) ', '\'' . $obj->substr ($string, -8, 6) . '\'');
-echo "\n";
-
 $time2 = microtime ();
 
-echo "=>  " . mtime ($time1, $time2) . " sec\n";
-
+echo "=>  " . mtime ($time1, $time2) . " sec\n"
 ?>
