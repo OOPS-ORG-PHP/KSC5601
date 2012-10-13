@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * API class that controls UCS2 for KSC5601 package
  *
@@ -7,10 +7,9 @@
  * @subpackage KSC5601_pure
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
+ * @license    Like BSD License
+ * @version    CVS: $Id: UCS2.php,v 1.9 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
- * @filesource
  */
 
 /**

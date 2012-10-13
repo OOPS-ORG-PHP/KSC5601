@@ -7,10 +7,9 @@
  * @subpackage KSC5601_pure
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
+ * @license    Like BSD License
+ * @version    CVS: $Id: UTF8.php,v 1.14 2009-07-16 20:05:08 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
- * @filesource
  */
 
 /**
@@ -67,27 +66,24 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 	}
 	// }}}
 
-	// {{{ function is_utf8 ($s, $ascii)
+	// {{{ function is_utf8 ($s)
 	/**
 	 * whether utf8 or not given strings
 	 *
 	 * @access public
 	 * @return boolean If given strings ars utf-8, return true
 	 * @param  string  Given strings
-	 * @param  boolean Check whether is ascii only or not
 	 */
-	function is_utf8 ($s, $ascii = false) {
+	function is_utf8 ($s) {
 		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
 			return true;
 
-		$ascii_status = true;
 		$l = strlen ($s);
 
 		for ( $i=0; $i<$l; $i++ ) {
 			# if single byte charactors, skipped
 			if ( ! (ord ($s[$i]) & 0x80) )
 				continue;
-			$ascii_status = false;
 
 			$first = KSC5601_Stream::chr2bin ($s[$i]);
 
@@ -132,9 +128,6 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 			break;
 		}
-
-		if ( $ascii && $ascii_status )
-			return false;
 
 		return true;
 	}

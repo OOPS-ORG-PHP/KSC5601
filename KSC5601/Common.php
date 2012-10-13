@@ -10,10 +10,9 @@
  * @subpackage KSC5601_Common
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
+ * @license    Like BSD License
+ * @version    CVS: $Id: Common.php,v 1.4 2009-07-16 19:48:29 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
- * @filesource
  */
 
 /**

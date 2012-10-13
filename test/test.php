@@ -19,9 +19,9 @@ if ( $cli !== true ) {
 }
 
 if ( file_exists ('../KSC5601.php') ) {
-	# í•˜ìœ„ ë””ë ‰í† ë¦¬ì— KSC5601.php ê°€ ì¡´ìž¬í•  ê²½ìš°, source treeì—ì„œì˜ í…ŒìŠ¤íŠ¸ë¡œ
-	# ê°„ì£¼í•˜ì—¬, include_pathì— í˜„ìž¬ ë””ë ‰í† ë¦¬ì˜ íŒŒì¼ì„ ê°€ìž¥ ìš°ì„ ì‹œ ì‹œí‚¤ê³ ,
-	# í•˜ìœ„ ë””ë ‰í† ë¦¬ë¡œ ì´ë™
+	# ÇÏÀ§ µð·ºÅä¸®¿¡ KSC5601.php °¡ Á¸ÀçÇÒ °æ¿ì, source tree¿¡¼­ÀÇ Å×½ºÆ®·Î
+	# °£ÁÖÇÏ¿©, include_path¿¡ ÇöÀç µð·ºÅä¸®ÀÇ ÆÄÀÏÀ» °¡Àå ¿ì¼±½Ã ½ÃÅ°°í,
+	# ÇÏÀ§ µð·ºÅä¸®·Î ÀÌµ¿
 	$path = ini_get ('include_path');
 	$path = '.:' . $path;
 	ini_set ('include_path', $path);
@@ -39,14 +39,14 @@ require_once 'KSC5601.php';
 
 $obj = new KSC5601;
 
-# í‘œì‹œí•  ìˆ˜ ì—†ëŠ” KSX1001 ë²”ìœ„ ë°–ì˜ ë¬¸ìž (CP949/UHC í™•ìž¥ ì˜ì—­) ë¥¼ 
-# NCR code ë¡œ ë³€ê²½ í•œë‹¤.
+# Ç¥½ÃÇÒ ¼ö ¾ø´Â KSX1001 ¹üÀ§ ¹ÛÀÇ ¹®ÀÚ (CP949/UHC È®Àå ¿µ¿ª) ¸¦ 
+# NCR code ·Î º¯°æ ÇÑ´Ù.
 #$obj->out_of_ksx1001 (true);
 
 $t1 = microtime ();
 $ksc = file_get_contents ('./test/test.txt');
 
-pr ('ì›ë¬¸', $ksc);
+pr ('¿ø¹®', $ksc);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
@@ -63,7 +63,7 @@ echo "=>  " . mtime ($t1, $t2) . " sec\n";
 /*
  * Convert UTF8 to UHC/CP949
  *
- * todo : utf8 -> UHC/CP949 ì²˜ë¦¬
+ * todo : utf8 -> UHC/CP949 Ã³¸®
  *
  */
 $t1 = microtime ();
@@ -118,25 +118,6 @@ echo "=>  " . mtime ($t1, $t2) . " sec\n";
 #pr ('TEMP', $z);
 #echo uniencode_lib ($ksc, 'U+') . "\n";
 #echo unidecode_lib ($ucs, 'euc-kr', 'U+') . "\n";
-
-/*
- * substr UTF8
- */
-$string = "2012.08.09 ë¶€í„° OOPSì— ë¬´ìƒ ì§€ì›";
-
-pr ('--                      ', " |123456789|123456789|123456789|12345 ");
-pr ('ì›ë¬¸                    ', '\'' . $string . '\'');
-pr ('substr ($s, 0, 26)      ', '\'' . substr ($string, 0, 26) . '\'');
-pr ('obj->substr ($s, 0, 26) ', '\'' . $obj->substr ($string, 0, 26) . '\'');
-pr ('substr ($s, 0, 16)      ', '\'' . substr ($string, 0, 16) . '\'');
-pr ('obj->substr ($s, 0, 16) ', '\'' . $obj->substr ($string, 0, 16) . '\'');
-pr ('substr ($s, 22, 26)     ', '\'' . substr ($string, 22, 26) . '\'');
-pr ('obj->substr ($s, 22, 26)', '\'' . $obj->substr ($string, 22, 26) . '\'');
-pr ('substr ($s, 14, 10)     ', '\'' . substr ($string, 14, 10) . '\'');
-pr ('obj->substr ($s, 14, 10)', '\'' . $obj->substr ($string, 14, 10) . '\'');
-pr ('substr ($s, -8, 6)      ', '\'' . substr ($string, -8, 6) . '\'');
-pr ('obj->substr ($s, -8, 6) ', '\'' . $obj->substr ($string, -8, 6) . '\'');
-echo "\n";
 
 $time2 = microtime ();
 

@@ -11,17 +11,15 @@
  * @subpackage KSC5601_ext
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
+ * @license    Like BSD License
+ * @version    CVS: $Id: KSC5601_ext.php,v 1.7 2009-07-16 20:00:24 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
- * @filesource
  */
 
 // {{{ constant
 /**
  * Define EXTMODE to true. This means that php support iconv or mbstring
  * extensions.
- * @ignore
  */
 define ('EXTMODE',    true);
 // }}}
@@ -91,17 +89,16 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ function is_utf8 ($string, $ascii)
+	// {{{ function is_utf8 ($string)
 	/**
 	 * Check given string wheter utf8 of not.
 	 *
 	 * @access  public
 	 * @return  boolean Given string is utf8, return true.
 	 * @param   string  Given strings
-	 * @param	boolean Check whether is ascii only or not
 	 */
-	function is_utf8 ($string, $ascii = false) {
-		return KSC5601_UTF8::is_utf8 ($string, $ascii);
+	function is_utf8 ($string) {
+		return KSC5601_UTF8::is_utf8 ($string);
 	}
 	// }}}
 

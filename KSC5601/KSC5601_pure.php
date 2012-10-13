@@ -11,10 +11,9 @@
  * @subpackage KSC5601_pure
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
+ * @license    Like BSD License
+ * @version    CVS: $Id: KSC5601_pure.php,v 1.6 2009-07-16 19:56:52 oops Exp $
  * @link       http://pear.oops.org/package/KSC5601
- * @filesource
  */
 
 // {{{ constant
@@ -93,17 +92,16 @@ Class KSC5601_pure
 	}
 	// }}}
 
-	// {{{ function is_utf8 ($string, $ascii)
+	// {{{ function is_utf8 ($string)
 	/**
 	 * Check given string wheter utf8 of not.
 	 *
 	 * @access  public
 	 * @return  boolean Given string is utf8, return true.
 	 * @param   string  Given strings
-	 * @param   boolean Check whether is ascii only or not
 	 */
-	function is_utf8 ($string, $ascii = false) {
-		return $this->obj->is_utf8 ($string, $ascii);
+	function is_utf8 ($string) {
+		return $this->obj->is_utf8 ($string);
 	}
 	// }}}
 
