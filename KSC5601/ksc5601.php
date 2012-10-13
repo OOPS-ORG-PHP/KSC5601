@@ -1,25 +1,21 @@
-<?php
+<?
 /** 
  * KSC5601 table map
  *
- * This file is in the public domain.
+ * this file is in the public domain.
  * there are no restrictions on any sort of usage of this file.
  *
  * @category    Charset
- * @package     KSC5601
- * @subpackage	KSC5601_pure
+ * @package     KSC5601_pure
  * @author      JoungKyun.Kim <http://oops.org>
  * @copyright   2009 (c) JoungKyun.Kim
  * @license     BSD License
- * @version     $Id$
- * @link        http://pear.oops.org/package/KSC5601
- * @filesource
+ * @version     $Id: ksc5601.php,v 1.3 2009-03-16 16:48:53 oops Exp $
+ * @link        ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
-// {{{ $GLOBALS['table_ksc5601']
 /**
  * KSC5601 table map
- *
  * @global array $GLOBALS['table_ksc5601']
  * @name $table_ksc5601
  */
@@ -1626,12 +1622,9 @@ $GLOBALS['table_ksc5601'] = array(
 0xd754, 0xd756, 0xd757, 0xd758, 0xd759, 0xd760, 0xd761, 0xd763,
 0xd765, 0xd769, 0xd76c, 0xd770, 0xd774, 0xd77c, 0xd77d, 0xd781,
 0xd788, 0xd789, 0xd78c, 0xd790, 0xd798, 0xd799, 0xd79b, 0xd79d);
-// }}}
 
-// {{{ $GLOBALS['table_ksc5601_hanja']
 /**
  * KSC5601 hanja table map
- *
  * @global array $GLOBALS['table_ksc5601_hanja']
  * @name $table_ksc5601_hanja
  */
@@ -2247,13 +2240,11 @@ $GLOBALS['table_ksc5601_hanja'] = array(
 0x6d3d, 0x7fd5, 0x8208, 0x50d6, 0x51de, 0x559c, 0x566b, 0x56cd,
 0x59ec, 0x5b09, 0x5e0c, 0x6199, 0x6198, 0x6231, 0x665e, 0x66e6,
 0x7199, 0x71b9, 0x71ba, 0x72a7, 0x79a7, 0x7a00, 0x7fb2, 0x8a70);
-// }}}
 
-// {{{ $GLOBALS['table_ksc5601_rev']
 /**
  * KSC5601 reverse table map
  *
- * This array is made by KSC5601_UCS2::mk_revtable method
+ * this array is made by KSC5601_UCS2::mk_revtable method
  *
  * @global array $GLOBALS['table_ksc5601_rev']
  * @name $table_ksc5601_rev
@@ -4390,5 +4381,4 @@ $GLOBALS['table_ksc5601_rev'] = array (
 33288 => 0xfde9, 20694 => 0xfdea, 20958 => 0xfdeb, 21916 => 0xfdec, 22123 => 0xfded, 22221 => 0xfdee, 23020 => 0xfdef, 23305 => 0xfdf0,
 24076 => 0xfdf1, 24985 => 0xfdf2, 24984 => 0xfdf3, 25137 => 0xfdf4, 26206 => 0xfdf5, 26342 => 0xfdf6, 29081 => 0xfdf7, 29113 => 0xfdf8,
 29114 => 0xfdf9, 29351 => 0xfdfa, 31143 => 0xfdfb, 31232 => 0xfdfc, 32690 => 0xfdfd, 35440 => 0xfdfe);
-// }}}
 ?>

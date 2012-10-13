@@ -3,61 +3,51 @@
  * KSC5601 UTF8 internal API for pure code
  *
  * @category   Charset
- * @package    KSC5601
- * @subpackage KSC5601_pure
+ * @package    KSC5601_pure
  * @author     JoungKyun.Kim <http://oops.org>
  * @copyright  (c) 2009, JoungKyun.Kim
- * @license    BSD License
- * @version    $Id$
- * @link       http://pear.oops.org/package/KSC5601
- * @filesource
+ * @license    Like BSD License
+ * @version    CVS: $Id: UTF8.php,v 1.10 2009-03-17 09:36:00 oops Exp $
+ * @link       ftp://mirror.oops.org/pub/oops/php/pear/KSC5601
  */
 
 /**
- * import High level API for convert character set
+ * 문자셋 변환을 위한 high level API
  */
 require_once 'KSC5601/Stream.php';
 
-/**
- * Only PHP don't support iconv/mbstring, UCS2.php is needed 
+/*
+ * UCS2.php 는 pure php code를 사용할 경우만 필요
  */
 if ( EXTMODE === false ) {
 	/**
-     * import API class that controls UCS2
+	 * UCS2를 제어하기 위한 API class
 	 */
 	require_once 'KSC5601/UCS2.php';
 } else {
 	/**
-	 * If needless USC2.php, define dummy class for compotable
-	 * @package KSC5601
+	 * UCS2.php 를 include 하지 않을 경우 호환성을 위한 dummy class
 	 * @ignore
 	 */
 	Class KSC5601_UCS2 {}
 }
 
 /**
- * UTF8 controle class api
+ * KSC5601 패키지에서 UTF8을 제어하기 위한 API Class
  *
- * @package KSC5601
+ * @category   Charset
+ * @package    KSC5601_pure
+ * @author     JoungKyun.Kim <http://oops.org>
+ * @copyright  (c) 2009, JoungKyun.Kim
+ * @license    Like BSD License
+ * @version    Release:
  */
 class KSC5601_UTF8 extends KSC5601_UCS2
 {
-	// {{{ properties
-	/**
-	 * Whether print debug message
-	 *
-	 * @access private
-	 */
 	private $debug = false;
-	// }}}
 
-	// {{{ function rm_utf8bom ($s)
-	/**
+	/*
 	 * remove utf8 bom code (first 3byte)
-	 *
-	 * @access public
-	 * @return string
-	 * @param  string Given strings
 	 */
 	function rm_utf8bom ($s) {
 		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
@@ -65,29 +55,20 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 		return $s;
 	}
-	// }}}
 
-	// {{{ function is_utf8 ($s, $ascii)
-	/**
+	/*
 	 * whether utf8 or not given strings
-	 *
-	 * @access public
-	 * @return boolean If given strings ars utf-8, return true
-	 * @param  string  Given strings
-	 * @param  boolean Check whether is ascii only or not
 	 */
-	function is_utf8 ($s, $ascii = false) {
+	function is_utf8 ($s) {
 		if ( ord ($s[0]) == 0xef && ord ($s[1]) == 0xbb && ord ($s[2]) == 0xbf )
 			return true;
 
-		$ascii_status = true;
 		$l = strlen ($s);
 
 		for ( $i=0; $i<$l; $i++ ) {
 			# if single byte charactors, skipped
 			if ( ! (ord ($s[$i]) & 0x80) )
 				continue;
-			$ascii_status = false;
 
 			$first = KSC5601_Stream::chr2bin ($s[$i]);
 
@@ -110,13 +91,12 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 			/*
 			 * 2byte: 1100000x (10xxxxxx)
-			 * 3byte: 11100000 10xxxxxx (10xxxxxx)
-			 * 4byte: 11110000 10xxxxxx (10xxxxxx 10xxxxxx)
-			 * 5byte: 11111000 10xxxxxx (10xxxxxx 10xxxxxx 10xxxxxx)
-			 * 6byte: 11111100 10xxx0xx (10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx)
+			 * 3byte: 11100000 100xxxxx (10xxxxxx)
+			 * 4byte: 11110000 1000xxxx (10xxxxxx 10xxxxxx)
+			 * 5byte: 11111000 10000xxx (10xxxxxx 10xxxxxx 10xxxxxx)
+			 * 6byte: 11111100 100000xx (10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx)
 			 */
 			for ( $j=1; $j<$byte; $j++ ) {
-				/*
 				if ( $j == 1 ) {
 					$n = 8 - $byte;
 					if ( KSC5601_Stream::chr2bin ($s[$i+1], ">>$n") != KSC5601_Stream::check2byte ($byte) )
@@ -124,7 +104,6 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 					continue;
 				}
-				 */
 
 				if ( KSC5601_Stream::chr2bin ($s[$i+$j], '>>6') != 10 )
 					return false;
@@ -133,21 +112,9 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 			break;
 		}
 
-		if ( $ascii && $ascii_status )
-			return false;
-
 		return true;
 	}
-	// }}}
 
-	// {{{ function utf8enc ($s)
-	/**
-	 * convert UCH to UTF-8
-	 *
-	 * @access public
-	 * @return string UTF-8 strings
-	 * @param  string Given UHC strings
-	 */
 	function utf8enc ($s) {
 		$len = strlen ($s);
 
@@ -180,16 +147,7 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 		return $r;
 	}
-	// }}}
 
-	// {{{ function utf8dec ($s)
-	/**
-	 * Convert UTF-8 to UHC
-	 *
-	 * @access public
-	 * @return string UHC strings
-	 * @param  string Given UTF-8 strings
-	 */
 	function utf8dec ($s) {
 		$s = $this->rm_utf8bom ($s);
 		$l = strlen ($s);
@@ -226,7 +184,6 @@ class KSC5601_UTF8 extends KSC5601_UCS2
 
 		return $r;
 	}
-	// }}}
 }
 
 /*
