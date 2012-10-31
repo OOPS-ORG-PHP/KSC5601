@@ -36,7 +36,7 @@ require_once 'KSC5601/UTF8.php';
  *
  * @package KSC5601
  */
-Class KSC5601_pure
+Class KSC5601_pure extends KSC5601_UTF8
 {
 	// {{{ properties
 	/**#@+
@@ -52,7 +52,7 @@ Class KSC5601_pure
 	 * Set false, no action for hangul that is out of ksx1001 range.
 	 * @var boolean
 	 */
-	private $out_ksx1001 = false;
+	protected $out_ksx1001 = false;
 	/**#@-*/
 	// }}}
 
@@ -63,13 +63,6 @@ Class KSC5601_pure
 	 */
 	function __construct () {
 		$this->obj = new KSC5601_UTF8;
-
-		if ( $GLOBALS['table_ksc5601'] )
-			$obj->ksc = $GLOBALS['table_ksc5601'];
-		if ( $GLOBALS['table_ksc5601_hanja'] )
-			$obj->hanja = $GLOBALS['table_ksc5601_hanja'];
-		if ( $GLOBALS['table_ksc5601_rev'] )
-			$obj->revs = $GLOBALS['table_ksc5601_rev'];
 	}
 	// }}}
 
@@ -88,8 +81,8 @@ Class KSC5601_pure
 	 *  </ol>
 	 */
 	function out_of_ksx1001 ($flag = false) {
-		$this->obj->out_ksx1001 = $flag;
-		return $this->obj->out_ksx1001;
+		$this->out_ksx1001 = $flag;
+		return $this->out_ksx1001;
 	}
 	// }}}
 
@@ -103,7 +96,7 @@ Class KSC5601_pure
 	 * @param   boolean Check whether is ascii only or not
 	 */
 	function is_utf8 ($string, $ascii = false) {
-		return $this->obj->is_utf8 ($string, $ascii);
+		return parent::is_utf8 ($string, $ascii);
 	}
 	// }}}
 
@@ -126,9 +119,9 @@ Class KSC5601_pure
 	 */
 	function utf8 ($string, $to = UTF8) {
 		if ( $to === UTF8 )
-			return $this->obj->utf8enc ($string);
+			return parent::utf8enc ($string);
 
-		return $this->obj->utf8dec ($string);
+		return parent::utf8dec ($string);
 	}
 	// }}}
 
@@ -171,11 +164,11 @@ Class KSC5601_pure
 
 		for ( $i=0; $i<$l; $i++ ) {
 			if ( ord ($string[$i]) & 0x80 ) {
-				$r .= 'U+' . strtoupper (dechex ($this->obj->ksc2ucs ($string[$i], $string[$i+1])));
+				$r .= 'U+' . strtoupper (dechex (parent::ksc2ucs ($string[$i], $string[$i+1])));
 				$i++;
 			} else {
 				# $asc == true, don't convert ascii code to NCR code
-				$r .= ( $asc === false ) ? $string[$i] : 'U+' . $this->obj->chr2hex ($string[$i], false);
+				$r .= ( $asc === false ) ? $string[$i] : 'U+' . parent::chr2hex ($string[$i], false);
 			}
 		}
 
@@ -209,7 +202,7 @@ Class KSC5601_pure
 				$i--;
 
 				if ( strlen ($c) == 4 )
-					$r .= $this->obj->ucs2ksc ($c);
+					$r .= parent::ucs2ksc ($c);
 				else
 					$r .= chr (hexdec ($c));
 			} else
@@ -263,13 +256,13 @@ Class KSC5601_pure
 		if ( $enc === true ) {
 			for ( $i=0; $i<$l; $i++ ) {
 				if ( ord ($string[$i]) & 0x80 ) {
-					$hex = dechex ($this->obj->ksc2ucs ($string[$i], $string[$i+1]));
+					$hex = dechex (parent::ksc2ucs ($string[$i], $string[$i+1]));
 					$hex = 'x' . strtoupper ($hex);
 					$r .= '&#' . $hex . ';';
 					$i++;
 				} else {
 					# $enc == true, don't convert ascii code to NCR code
-					$hex = 'x' . $this->obj->chr2hex ($string[$i], false);
+					$hex = 'x' . parent::chr2hex ($string[$i], false);
 					$r .= '&#' . $hex . ';';
 				}
 			}
@@ -280,15 +273,15 @@ Class KSC5601_pure
 		for ( $i=0; $i<$l; $i++ ) {
 			if ( ord ($string[$i]) & 0x80 ) {
 				$i++;
-				if ( $this->obj->out_ksx1001 === true ) {
-				 	if ( $this->obj->is_out_of_ksx1001 ($string[$i-1], $string[$i]) ) {
-						$hex = dechex ($this->obj->ksc2ucs ($string[$i-1], $string[$i]));
+				if ( $this->out_ksx1001 === true ) {
+				 	if ( parent::is_out_of_ksx1001 ($string[$i-1], $string[$i]) ) {
+						$hex = dechex (parent::ksc2ucs ($string[$i-1], $string[$i]));
 						$hex = 'x' . strtoupper ($hex);
 						$r .= '&#' . $hex . ';';
 					} else
 						$r .= $string[$i-1] . $string[$i];
 				} else {
-					$hex = dechex ($this->obj->ksc2ucs ($string[$i-1], $string[$i]));
+					$hex = dechex (parent::ksc2ucs ($string[$i-1], $string[$i]));
 					$hex = 'x' . strtoupper ($hex);
 					$r .= '&#' . $hex . ';';
 				}
@@ -339,12 +332,12 @@ Class KSC5601_pure
 					$c = dechex ($c);
 
 				if ( strlen ($c) == 4 ) {
-					$org_ksx1001 = $this->obj->out_ksx1001;
-					$this->obj->out_ksx1001 = false;
+					$org_ksx1001 = $this->out_ksx1001;
+					$this->out_ksx1001 = false;
 
-					$r .= $this->obj->ucs2ksc ($c);
+					$r .= parent::ucs2ksc ($c);
 
-					$this->obj->out_ksx1001 = $org_ksx1001;
+					$this->out_ksx1001 = $org_ksx1001;
 				} else
 					$r .= chr (hexdec ($c));
 			} else
@@ -365,7 +358,7 @@ Class KSC5601_pure
 	 * @param  void
 	 */
 	function make_reverse_table () {
-		$this->obj->mk_revTable ();
+		parent::mk_revTable ();
 	}
 	// }}}
 }

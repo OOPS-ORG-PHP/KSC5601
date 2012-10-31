@@ -14,7 +14,7 @@
 	<date>@curdate@</date>
 	<time>@curtime@</time>
 	<version>
-		<release>2.0.2</release>
+		<release>2.0.3</release>
 		<api>2.0.2</api>
 	</version>
 	<stability>
@@ -22,10 +22,7 @@
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>* Add ascii only check mode in UTF8::is_utf8 API
-* change method name KSC5601::out_of_ksc1001 to KSC5601::out_of_ksx1001
-* add multibyte(CJK unicode and EUC-KR/EUC-JP) KSC5601::substr() method
-* fixed wrong check KSC4501::is_ksc5601() method
+	<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
 </notes>
 	<contents>
 		<dir name="/">
@@ -65,7 +62,7 @@
 	<changelog>
 		<release>
 			<version>
-				<release>2.0.2</release>
+				<release>2.0.3</release>
 				<api>2.0.2</api>
 			</version>
 			<stability>
@@ -73,6 +70,20 @@
 				<api>stable</api>
 			</stability>
 			<date>@curdate@</date>
+			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+			<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
+</notes>
+		</release>
+		<release>
+			<version>
+				<release>2.0.2</release>
+				<api>2.0.2</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<date>2012-10-14</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 			<notes>* Add ascii only check mode in UTF8::is_utf8 API
 * change method name KSC5601::out_of_ksc1001 to KSC5601::out_of_ksx1001

@@ -53,7 +53,7 @@ Class KSC5601_ext
 	 * Set false, no action for hangul that is out of ksx1001 range.
 	 * @var boolean
 	 */
-	private $out_ksx1001 = false;
+	protected $out_ksx1001 = false;
 	/**#@-*/
 	// }}}
 

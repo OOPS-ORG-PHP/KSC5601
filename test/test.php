@@ -1,4 +1,4 @@
-<?
+<?php
 function mtime($old, $new) {
 	$start = explode(" ", $old);
 	$end = explode(" ", $new);

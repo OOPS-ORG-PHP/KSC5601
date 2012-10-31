@@ -89,7 +89,7 @@ class KSC5601_Stream
 	 */
 	function chr2bin ($c, $shift = '') {
 		if ( preg_match ('/^(U\+|0x)/', $c) )
-			$c = KSC5601_Stream::hex2chr ($c);
+			$c = self::hex2chr ($c);
 
 		$c = ord ($c);
 
