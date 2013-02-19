@@ -292,7 +292,7 @@ Class KSC5601
 		// CJK Compatibility Forms               0xfe30 - 0xfe4f
 		// CJK Unified Ideographs Extension B    0x20000 - 0x2a6df
 		//
-		$pattern = '\x{1100}-\x{11ff}}\x{3130}-\x{318f}\x{ac00}-\x{d7af}'; // Hnagul
+		$pattern  = '\x{1100}-\x{11ff}\x{3130}-\x{318f}\x{ac00}-\x{d7af}'; // Hnagul
 		$pattern .= '\x{30a0}-\x{30f0}\x{3100}-\x{312f}\x{31f0}-\x{31ff}'; // Japanese
 		$pattern .= '\x{3200}-\x{32ff}\x{3300}-\x{33ff}\x{3400}-\x{4dbf}'; // Hanja
 		$pattern .= '\x{4e00}-\x{9fff}\x{f900}-\x{faff}\x{20000}-\x{2a6df}'; // Hanja
