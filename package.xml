@@ -11,19 +11,18 @@
 		<email>joungkyun@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2013-02-20</date>
-	<time>06:30:09</time>
+	<date>2013-07-29</date>
+	<time>23:51:36</time>
 	<version>
-		<release>2.0.3</release>
+		<release>2.0.4</release>
 		<api>2.0.2</api>
 	</version>
 	<stability>
-		<release>stable</release>
+		<release>devel</release>
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
-* fixed typo KSC5601::substr
+	<notes>
 </notes>
 	<contents>
 		<dir name="/">
@@ -34,7 +33,7 @@
 			<file role="php" md5sum="3705f104bc802122e7538feb64822133" name="KSC5601/UCS2.php" />
 			<file role="php" md5sum="6c34210860e10e3daf39ecd8b0130450" name="KSC5601/UTF8.php" />
 			<file role="php" md5sum="bfe8a611b5d1b95356dd745488125180" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="7489107c00fc31d32de67a48fa5b117d" name="KSC5601.php" />
+			<file role="php" md5sum="9aa620eb092ffaba94416e8db80e1f01" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
@@ -63,6 +62,20 @@
 	<changelog>
 		<release>
 			<version>
+				<release>2.0.4</release>
+				<api>2.0.2</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<date>2013-07-29</date>
+			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+			<notes>
+</notes>
+		</release>
+		<release>
+			<version>
 				<release>2.0.3</release>
 				<api>2.0.2</api>
 			</version>
@@ -73,6 +86,7 @@
 			<date>2013-02-20</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 			<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
+* fixed typo KSC5601::substr
 </notes>
 		</release>
 		<release>
