@@ -44,7 +44,7 @@ Class KSC5601_pure extends KSC5601_UTF8
 	 */
 	/**
 	 * KSC5601_UTF8 object
-	 * @var object
+	 * @var KSC5601_UTF8
 	 */
 	private $obj;
 	/**

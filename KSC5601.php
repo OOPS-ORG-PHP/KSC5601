@@ -93,12 +93,12 @@ Class KSC5601
 	 */
 	/**
 	 * KSC5601_common object
-	 * @var object
+	 * @var KSC5601_Common
 	 */
 	private $chk;
 	/*
 	 * internal KSC5601 API object
-	 * @var object
+	 * @var KSC5601_pure|KSC5601_ext
 	 */
 	private $obj;
 	/**#@-*/

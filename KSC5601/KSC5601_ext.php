@@ -45,7 +45,7 @@ Class KSC5601_ext
 	 */
 	/**
 	 * KSC5601_common object
-	 * @var object
+	 * @var KSC5601_common
 	 */
 	private $obj;
 	/**
@@ -57,27 +57,27 @@ Class KSC5601_ext
 	/**#@-*/
 	// }}}
 
-	// {{{ constructor
+	// {{{ public (void) __construct ($is_ext)
 	/**
 	 * Support iconv or mbstring extension, use KSC5601_ext internal class, or not
 	 * support use KSC5601_pure internal class.
 	 *
 	 * @access public
 	 * @return void
-	 * @param  object  return value of KSC5601_Common class
+	 * @param  KSC5601_Common return value of KSC5601_Common class
 	 */
 	function __construct ($is_ext) {
 		$this->obj  = $is_ext;
 	}
 	// }}}
 
-	// {{{ function out_of_ksx1001 ($flag = false)
+	// {{{ public (bool) out_of_ksx1001 ($flag = false)
 	/**
 	 * Set whether convert hangul that is out of KSX1001 range. This method changes
 	 * private $out_ksc1001 variable.
 	 *
 	 * @access  public
-	 * @return  boolean Return 
+	 * @return  boolean
 	 * @param   boolean (optional) Defaults to false
 	 *  <ol>
 	 *      <li>true : When decode UTF-8, convert to NCR from hangul character that is out of KSX1001 range.</li>
@@ -91,7 +91,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ function is_utf8 ($string, $ascii)
+	// {{{ public (bool) is_utf8 ($string, $ascii = false)
 	/**
 	 * Check given string wheter utf8 of not.
 	 *
@@ -105,7 +105,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ function utf8 ($string, $to = UTF8)
+	// {{{ public (string) utf8 ($string, $to = UTF8)
 	/**
 	 * Convert between UHC and UTF-8
 	 *
@@ -143,7 +143,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ function ucs2 ($string, $to = UCS2, $asc = false)
+	// {{{ public (string) ucs2 ($string, $to = UCS2, $asc = false)
 	/**
 	 * Convert between UHC and UCS2
 	 *
@@ -168,7 +168,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ private function ucs2enc ($string, $asc = false)
+	// {{{ private (string) ucs2enc ($string, $asc = false)
 	/**
 	 * Convert UHC to UCS2 hexical
 	 *
@@ -199,7 +199,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ private function ucs2dec ($string)
+	// {{{ private (string) ucs2dec ($string)
 	/**
 	 * Convert UCS2 hexical to UHC
 	 *
@@ -229,7 +229,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ function ncr ($string, $to = NCR, $enc = false)
+	// {{{ public (string) ncr ($string, $to = NCR, $enc = false)
 	/**
 	 * Convert between UHC and NCR (Numeric Code Reference)
 	 *
@@ -257,7 +257,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ private function ncr2enc ($string, $enc = false)
+	// {{{ private (string) ncr2enc ($string, $enc = false)
 	/**
 	 * Convert NCR code to UCS2
 	 *
@@ -314,7 +314,7 @@ Class KSC5601_ext
 	}
 	// }}}
 
-	// {{{ private function ncr2dec ($string)
+	// {{{ private (string) ncr2dec ($string)
 	/**
 	 * Convert NCR code to UHC
 	 *

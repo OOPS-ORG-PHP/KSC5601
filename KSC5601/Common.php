@@ -26,7 +26,7 @@
  */
 class KSC5601_Common
 {
-	// {{{ function is_iconv ()
+	// {{{ public (bool) is_iconv ()
 	/**
 	 * Check to enable iconv extension on this session.
 	 *
@@ -40,7 +40,7 @@ class KSC5601_Common
 	}
 	// }}}
 
-	// {{{ function is_mbstring ()
+	// {{{ public (bool) is_mbstring ()
 	/**
 	 * Check to enable mbstring extension on this session.
 	 *
@@ -54,7 +54,7 @@ class KSC5601_Common
 	}
 	// }}}
 
-	// {{{ function is_extfunc ()
+	// {{{ public (bool) is_extfunc ()
 	/**
 	 * Check to enable iconv or mbstring extension on this session.
 	 *
@@ -69,7 +69,7 @@ class KSC5601_Common
 	}
 	// }}}
 
-	// {{{ function extfunc ($from, $to, $str)
+	// {{{ public (string|false) extfunc ($from, $to, $str)
 	/**
 	 * iconv/mbstring wrapper function
 	 *
