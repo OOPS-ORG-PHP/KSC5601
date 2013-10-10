@@ -172,6 +172,32 @@ Class KSC5601
 	}
 	// }}}
 
+	// {{{ +-- public (boolean) is_hangul ($s)
+	/**
+	 * 주어진 문장에 한글(UTF-8/EUC-KR)이 포함되어 있는지를 검사
+	 *
+	 * 이 method의 경우에는 한글이 아닌 다른 multibyte 문자의 마지막 바이트와
+	 * 첫번째 바이트에 의한 오차가 발생할 수 있으므로 정확도가 필요할 경우에는
+	 * is_ksc5601 method를 이용해야 한다.
+	 *
+	 * @access public
+	 * @return boolean
+	 * @param string
+	 * @since 2.0.3
+	 */
+	function is_hangul ($s) {
+		// UTF-8 case
+		if ( preg_match ('/[\x{1100}-\x{11FF}\x{3130}-\x{318F}\x{AC00}-\x{D7AF}]/', $s) )
+			return true;
+
+		// EUC-KR case
+		if ( preg_match ('/[\xA1-\xFE]/', $s) )
+			return true;
+
+		return false;
+	}
+	// }}}
+
 	// {{{ (boolean) KSC5601:: is_ksc5601 ($string)
 	/**
 	 * 주어진 2byte 문자가 ksc5601의 범위에 있는지 확인한다.

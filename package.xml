@@ -12,9 +12,9 @@
 		<active>yes</active>
 	</lead>
 	<date>2013-10-11</date>
-	<time>00:44:56</time>
+	<time>00:52:39</time>
 	<version>
-		<release>2.0.4</release>
+		<release>2.0.3</release>
 		<api>2.0.2</api>
 	</version>
 	<stability>
@@ -22,7 +22,9 @@
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>
+	<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
+* fixed typo KSC5601::substr
+* add KSC5601::is_hangul method
 </notes>
 	<contents>
 		<dir name="/">
@@ -33,7 +35,7 @@
 			<file role="php" md5sum="3705f104bc802122e7538feb64822133" name="KSC5601/UCS2.php" />
 			<file role="php" md5sum="6c34210860e10e3daf39ecd8b0130450" name="KSC5601/UTF8.php" />
 			<file role="php" md5sum="bfe8a611b5d1b95356dd745488125180" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="8f81baf7b49f7a55d99268b15c82766b" name="KSC5601.php" />
+			<file role="php" md5sum="2a256fc645055b3a94785881293decdd" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
