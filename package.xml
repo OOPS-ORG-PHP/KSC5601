@@ -1,140 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package version="2.0" packagerversion="1.7.2" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
-	<!-- $Id$ -->
-	<name>KSC5601</name>
-	<channel>pear.oops.org</channel>
-	<summary>Manipulation character set between KSC5601 and UTF-8</summary>
-	<description>Manipulation character set between KSC5601 and UTF-8. KSC5601 pear package also enables to convert UCS2, NCR code between Unicode and UTF8 or KSC5601.</description>
-	<lead>
-		<name>JoungKyun.Kim</name>
-		<user>joungkyun</user>
-		<email>joungkyun@gmail.com</email>
-		<active>yes</active>
-	</lead>
-	<date>2014-01-25</date>
-	<time>17:49:00</time>
-	<version>
-		<release>2.0.4</release>
-		<api>2.0.2</api>
-	</version>
-	<stability>
-		<release>devel</release>
-		<api>stable</api>
-	</stability>
-	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>
-</notes>
-	<contents>
-		<dir name="/">
-			<file role="php" md5sum="8e7c9e3a6b6f1b3212346c93b75d3e4d" name="KSC5601/KSC5601_ext.php" />
-			<file role="php" md5sum="6722e728f031139ee2fcd520bb561f11" name="KSC5601/KSC5601_pure.php" />
-			<file role="php" md5sum="c714a064253f43ecdfa706b7ebd4a1ce" name="KSC5601/Common.php" />
-			<file role="php" md5sum="7100e31d9162a5babd5e1f48a4893689" name="KSC5601/Stream.php" />
-			<file role="php" md5sum="b8ece8cb5ded792ce8ec74b2dd5988b0" name="KSC5601/UCS2.php" />
-			<file role="php" md5sum="76f954857216048a3626a3860fc27a4a" name="KSC5601/UTF8.php" />
-			<file role="php" md5sum="43575dd2b1e9cb0fb51ec05256cac96b" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="0cce1a888455f4cb00f84319077dd9d8" name="KSC5601.php" />
-		</dir>
-	</contents>
-	<dependencies>
-		<required>
-			<php>
-				<min>5.0.0</min>
-			</php>
-			<pearinstaller>
-				<min>1.4.3</min>
-			</pearinstaller>
-		</required>
-		<optional>
-			<package>
-				<name>iconv</name>
-				<channel>php</channel>
-				<min>5.0.0</min>
-			</package>
-			<package>
-				<name>mbstring</name>
-				<channel>php</channel>
-				<min>5.0.0</min>
-			</package>
-		</optional>
-	</dependencies>
-	<phprelease />
-	<changelog>
-		<release>
-			<version>
-				<release>2.0.4</release>
-				<api>2.0.2</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2014-01-25</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>
-</notes>
-		</release>
-		<release>
-			<version>
-				<release>2.0.3</release>
-				<api>2.0.2</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2014-01-25</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>KSC5601</name>
+ <channel>pear.oops.org</channel>
+ <summary>Manipulation character set between KSC5601 and UTF-8</summary>
+ <description>Manipulation character set between KSC5601 and UTF-8. KSC5601 pear package also enables to convert UCS2, NCR code between Unicode and UTF8 or KSC5601.</description>
+ <lead>
+  <name>JoungKyun.Kim</name>
+  <user>joungkyun</user>
+  <email>joungkyun@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2014-01-25</date>
+ <time>17:47:51</time>
+ <version>
+  <release>2.0.3</release>
+  <api>2.0.2</api>
+ </version>
+ <stability>
+  <release>devel</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* fixed E_STRICT and undeclear object problems on PHP 5.4
 * fixed typo KSC5601::substr
-</notes>
-		</release>
-		<release>
-			<version>
-				<release>2.0.2</release>
-				<api>2.0.2</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2012-10-14</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>* Add ascii only check mode in UTF8::is_utf8 API
+* add KSC5601::is_hangul method
+ </notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="8e7c9e3a6b6f1b3212346c93b75d3e4d" name="KSC5601/KSC5601_ext.php" role="php" />
+   <file md5sum="6722e728f031139ee2fcd520bb561f11" name="KSC5601/KSC5601_pure.php" role="php" />
+   <file md5sum="c714a064253f43ecdfa706b7ebd4a1ce" name="KSC5601/Common.php" role="php" />
+   <file md5sum="7100e31d9162a5babd5e1f48a4893689" name="KSC5601/Stream.php" role="php" />
+   <file md5sum="b8ece8cb5ded792ce8ec74b2dd5988b0" name="KSC5601/UCS2.php" role="php" />
+   <file md5sum="76f954857216048a3626a3860fc27a4a" name="KSC5601/UTF8.php" role="php" />
+   <file md5sum="43575dd2b1e9cb0fb51ec05256cac96b" name="KSC5601/ksc5601.php" role="php" />
+   <file md5sum="0cce1a888455f4cb00f84319077dd9d8" name="KSC5601.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>iconv</name>
+    <channel>php</channel>
+    <min>5.0.0</min>
+   </package>
+   <package>
+    <name>mbstring</name>
+    <channel>php</channel>
+    <min>5.0.0</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2014-01-25</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* fixed E_STRICT and undeclear object problems on PHP 5.4
+* fixed typo KSC5601::substr
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2012-10-14</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Add ascii only check mode in UTF8::is_utf8 API
 * change method name KSC5601::out_of_ksc1001 to KSC5601::out_of_ksx1001
 * add multibyte(CJK unicode and EUC-KR/EUC-JP) KSC5601::substr() method
 * fixed wrong check KSC4501::is_ksc5601() method
-</notes>
-		</release>
-		<release>
-			<version>
-				<release>2.0.1</release>
-				<api>2.0.1</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2010-11-15</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>* fixed wrong utf8 check UTF8::is_utf8 API
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-11-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* fixed wrong utf8 check UTF8::is_utf8 API
 * changed internal KSC5601 class to KSC5601_ext and KSC5601_pure
 * changed comments to english
 * add is_ksc5601 and is_ksx1001 method
-</notes>
-		</release>
-		<release>
-			<version>
-				<release>2.0.0</release>
-				<api>2.0.0</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2009-03-17</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>* interal API version update to 2.0
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-03-17</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* interal API version update to 2.0
 * not compotable 1.0.x
 * devided iconv/mbstring mode and Pure code
 * change UCS4 to UCS2 (include api name)
@@ -146,38 +138,41 @@
 * Deprecated todencr method. (use ncr($stinrg, UHC))
 * Deprecated utf8enc method. (use utf8 ($stinrg, UTF8)))
 * Deprecated utf8dec method. (use utf8 ($stinrg, UHC)))
-</notes>
-		</release>
-		<release>
-			<version>
-				<release>1.0.1</release>
-				<api>1.0.0</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2009-03-16</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>* fixed wrong check 2byte utf-8 on is_utf8 method
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-03-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* fixed wrong check 2byte utf-8 on is_utf8 method
 * bom code check on is_utf8 method
 * change UCS4 to UCS2 (include api name)
 * support convert ucs2 with native iconv or mbstring
 * no release this version
-</notes>
-		</release>
-		<release>
-			<version>
-				<release>1.0.0</release>
-				<api>1.0.0</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2008-09-29</date>
-			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>* release 1.0.0</notes>
-		</release>
-	</changelog>
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-09-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* release 1.0.0
+   </notes>
+  </release>
+ </changelog>
 </package>
