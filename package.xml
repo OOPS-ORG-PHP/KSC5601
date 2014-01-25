@@ -12,7 +12,7 @@
 		<active>yes</active>
 	</lead>
 	<date>2014-01-25</date>
-	<time>17:47:19</time>
+	<time>17:47:48</time>
 	<version>
 		<release>2.0.3</release>
 		<api>2.0.2</api>
@@ -28,14 +28,14 @@
 </notes>
 	<contents>
 		<dir name="/">
-			<file role="php" md5sum="f58cd3b896cd19667a3cd9573066e5f3" name="KSC5601/KSC5601_ext.php" />
-			<file role="php" md5sum="6c7f714c0a59e4cbd76f32da971b4e01" name="KSC5601/KSC5601_pure.php" />
-			<file role="php" md5sum="ba4b0139ed1bcd9772f38ac2a1e416cc" name="KSC5601/Common.php" />
-			<file role="php" md5sum="db02949e23f29fe602528ad025ba258e" name="KSC5601/Stream.php" />
-			<file role="php" md5sum="13baf71fb365860faa897923f0c1b78e" name="KSC5601/UCS2.php" />
-			<file role="php" md5sum="dc2c383319a73d4157172febb7197c84" name="KSC5601/UTF8.php" />
-			<file role="php" md5sum="78ab46ce033fa6b6be65a9ac4cf085a7" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="5ca88fcf953e7ab2ee67b7a095a26d12" name="KSC5601.php" />
+			<file role="php" md5sum="8e7c9e3a6b6f1b3212346c93b75d3e4d" name="KSC5601/KSC5601_ext.php" />
+			<file role="php" md5sum="6722e728f031139ee2fcd520bb561f11" name="KSC5601/KSC5601_pure.php" />
+			<file role="php" md5sum="c714a064253f43ecdfa706b7ebd4a1ce" name="KSC5601/Common.php" />
+			<file role="php" md5sum="7100e31d9162a5babd5e1f48a4893689" name="KSC5601/Stream.php" />
+			<file role="php" md5sum="b8ece8cb5ded792ce8ec74b2dd5988b0" name="KSC5601/UCS2.php" />
+			<file role="php" md5sum="76f954857216048a3626a3860fc27a4a" name="KSC5601/UTF8.php" />
+			<file role="php" md5sum="43575dd2b1e9cb0fb51ec05256cac96b" name="KSC5601/ksc5601.php" />
+			<file role="php" md5sum="0cce1a888455f4cb00f84319077dd9d8" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
