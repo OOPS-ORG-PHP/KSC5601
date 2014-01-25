@@ -11,8 +11,8 @@
 		<email>joungkyun@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2013-10-11</date>
-	<time>00:52:39</time>
+	<date>2014-01-25</date>
+	<time>17:47:19</time>
 	<version>
 		<release>2.0.3</release>
 		<api>2.0.2</api>
@@ -28,14 +28,14 @@
 </notes>
 	<contents>
 		<dir name="/">
-			<file role="php" md5sum="5bdcf342972a578ee72198f0cfc22215" name="KSC5601/KSC5601_ext.php" />
-			<file role="php" md5sum="c48772d8a7b59348aa3966b6c54598dd" name="KSC5601/KSC5601_pure.php" />
-			<file role="php" md5sum="70257563defb0e1b66be8e5fce03ce5a" name="KSC5601/Common.php" />
-			<file role="php" md5sum="e6f00d9c6569e6c1e99496b2d787d3ae" name="KSC5601/Stream.php" />
-			<file role="php" md5sum="3705f104bc802122e7538feb64822133" name="KSC5601/UCS2.php" />
-			<file role="php" md5sum="6c34210860e10e3daf39ecd8b0130450" name="KSC5601/UTF8.php" />
-			<file role="php" md5sum="bfe8a611b5d1b95356dd745488125180" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="2a256fc645055b3a94785881293decdd" name="KSC5601.php" />
+			<file role="php" md5sum="f58cd3b896cd19667a3cd9573066e5f3" name="KSC5601/KSC5601_ext.php" />
+			<file role="php" md5sum="6c7f714c0a59e4cbd76f32da971b4e01" name="KSC5601/KSC5601_pure.php" />
+			<file role="php" md5sum="ba4b0139ed1bcd9772f38ac2a1e416cc" name="KSC5601/Common.php" />
+			<file role="php" md5sum="db02949e23f29fe602528ad025ba258e" name="KSC5601/Stream.php" />
+			<file role="php" md5sum="13baf71fb365860faa897923f0c1b78e" name="KSC5601/UCS2.php" />
+			<file role="php" md5sum="dc2c383319a73d4157172febb7197c84" name="KSC5601/UTF8.php" />
+			<file role="php" md5sum="78ab46ce033fa6b6be65a9ac4cf085a7" name="KSC5601/ksc5601.php" />
+			<file role="php" md5sum="5ca88fcf953e7ab2ee67b7a095a26d12" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
@@ -71,7 +71,7 @@
 				<release>stable</release>
 				<api>stable</api>
 			</stability>
-			<date>2013-10-11</date>
+			<date>2014-01-25</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
 			<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
 * fixed typo KSC5601::substr

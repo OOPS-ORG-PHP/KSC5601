@@ -9,7 +9,7 @@
  * @package     KSC5601
  * @subpackage	KSC5601_pure
  * @author      JoungKyun.Kim <http://oops.org>
- * @copyright   2009 (c) JoungKyun.Kim
+ * @copyright   2014 (c) JoungKyun.Kim
  * @license     BSD License
  * @version     $Id$
  * @link        http://pear.oops.org/package/KSC5601
