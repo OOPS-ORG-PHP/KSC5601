@@ -12,9 +12,9 @@
 		<active>yes</active>
 	</lead>
 	<date>2014-01-25</date>
-	<time>17:47:48</time>
+	<time>17:49:00</time>
 	<version>
-		<release>2.0.3</release>
+		<release>2.0.4</release>
 		<api>2.0.2</api>
 	</version>
 	<stability>
@@ -22,9 +22,7 @@
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>* fixed E_STRICT and undeclear object problems on PHP 5.4
-* fixed typo KSC5601::substr
-* add KSC5601::is_hangul method
+	<notes>
 </notes>
 	<contents>
 		<dir name="/">
@@ -62,6 +60,20 @@
 	</dependencies>
 	<phprelease />
 	<changelog>
+		<release>
+			<version>
+				<release>2.0.4</release>
+				<api>2.0.2</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<date>2014-01-25</date>
+			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+			<notes>
+</notes>
+		</release>
 		<release>
 			<version>
 				<release>2.0.3</release>
