@@ -117,7 +117,7 @@ Class KSC5601
 	function __construct () {
 		$this->chk = new KSC5601_Common;
 
-		if ( $this->chk->is_extfunc () !== true ) {
+		if ( $this->chk->is_extfunc () === true ) {
 			/**
 			 * KSC5601_ext class method use iconv or mbstring extension
 			 */

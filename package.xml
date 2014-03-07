@@ -11,8 +11,8 @@
 		<email>joungkyun@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2014-01-25</date>
-	<time>17:49:00</time>
+	<date>2014-03-07</date>
+	<time>13:04:01</time>
 	<version>
 		<release>2.0.4</release>
 		<api>2.0.2</api>
@@ -22,7 +22,7 @@
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-	<notes>
+	<notes>* fixed wrong check ext or pure mode
 </notes>
 	<contents>
 		<dir name="/">
@@ -33,7 +33,7 @@
 			<file role="php" md5sum="b8ece8cb5ded792ce8ec74b2dd5988b0" name="KSC5601/UCS2.php" />
 			<file role="php" md5sum="76f954857216048a3626a3860fc27a4a" name="KSC5601/UTF8.php" />
 			<file role="php" md5sum="43575dd2b1e9cb0fb51ec05256cac96b" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="0cce1a888455f4cb00f84319077dd9d8" name="KSC5601.php" />
+			<file role="php" md5sum="3bbd6b736278ede2c0d949a62f479cdc" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
@@ -69,9 +69,9 @@
 				<release>stable</release>
 				<api>stable</api>
 			</stability>
-			<date>2014-01-25</date>
+			<date>2014-03-07</date>
 			<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
-			<notes>
+			<notes>* fixed wrong check ext or pure mode
 </notes>
 		</release>
 		<release>
