@@ -180,6 +180,7 @@ Class KSC5601_ext extends KSC5601_UTF8
 	private function ucs2enc ($string, $asc = false) {
 		$string = $this->obj->extfunc (UHC, UCS2, $string);
 		$l = strlen ($string);
+		$r = null;
 
 		for ( $i=0; $i<$l; $i++ ) {
 			if ( ord ($string[$i]) == 0 ) {
@@ -267,6 +268,7 @@ Class KSC5601_ext extends KSC5601_UTF8
 	 * @param  boolena (optional) Defaults to false.
 	 */
 	private function ncr2enc ($string, $enc = false) {
+		$r = null;
 		if ( $enc === false ) {
 			$l = strlen ($string);
 

@@ -48,7 +48,7 @@ define ('UTF8',   'utf8');
  * EUC-KR charset string
  * @name EUC-KR
  */
-define ('EUC-KR', 'euc-kr');
+define ('EUCKR', 'euc-kr');
 /**
  * CP949 Alias
  * @name UHC
@@ -326,6 +326,7 @@ Class KSC5601
 		$matches = $matches_all[0];
 
 		// 3byte 문자를 2byte로 계산해서 문자열 길이를 구함
+		$slen = 0;
 		for ( $i=0; $i<count ($matches); $i++ )
 			$slen += (strlen ($matches[$i]) > 1) ? 2 : 1;
 
@@ -346,6 +347,7 @@ Class KSC5601
 			if ( ($len = $slen + $len) < 0 )
 				return false;
 		
+		$count = 0;
 		if ( $start > 0 ) {
 			if ( $start + $len > $slen )
 				$len = $slen - $start;
@@ -369,7 +371,7 @@ Class KSC5601
 				return $str;
 		}
 
-		$count = 0;
+		$r = null;
 		foreach ( $matches as $v ) {
 			$count += (strlen ($v) > 2) ? 2 : 1;
 			if ( $count > $len )

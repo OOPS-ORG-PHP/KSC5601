@@ -104,6 +104,7 @@ class KSC5601_Stream
 
 		$c = decbin ($c);
 		$l = strlen ($c);
+		$prefix = '';
 
 		if ( $l < 8 ) :
 			$n = 8 - $l;

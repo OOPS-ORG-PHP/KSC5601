@@ -51,6 +51,12 @@ pr ('원문', $ksc);
 $t2 = microtime ();
 echo "=>  " . mtime ($t1, $t2) . " sec\n";
 
+if ( $obj->is_utf8 ($ksc) )
+	echo "yes\n";
+else
+	echo "no\n";
+exit;
+
 /*
  * Convert EUC-KR(or UHC/CP949) to UTF8
  */
@@ -68,7 +74,7 @@ echo "=>  " . mtime ($t1, $t2) . " sec\n";
  *
  */
 $t1 = microtime ();
-$ksc1 = $obj->utf8 ($utf, EUC-KR);
+$ksc1 = $obj->utf8 ($utf, EUCkR);
 
 pr ('KSC', $ksc1);
 $t2 = microtime ();
