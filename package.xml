@@ -12,13 +12,13 @@
 		<active>yes</active>
 	</lead>
 	<date>2014-03-07</date>
-	<time>15:50:02</time>
+	<time>16:07:05</time>
 	<version>
 		<release>2.0.5</release>
 		<api>2.0.2</api>
 	</version>
 	<stability>
-		<release>devel</release>
+		<release>stable</release>
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
@@ -27,14 +27,14 @@
 </notes>
 	<contents>
 		<dir name="/">
-			<file role="php" md5sum="9bdf96bac47031a942a0d01e658e3d1c" name="KSC5601/KSC5601_ext.php" />
+			<file role="php" md5sum="5f6be1272f20c52ade3c24d7a0e9c8f5" name="KSC5601/KSC5601_ext.php" />
 			<file role="php" md5sum="6722e728f031139ee2fcd520bb561f11" name="KSC5601/KSC5601_pure.php" />
 			<file role="php" md5sum="d2267dea4680a2932988f5d3814fa544" name="KSC5601/Common.php" />
-			<file role="php" md5sum="37fe106c57a8b67079db669c2d946a04" name="KSC5601/Stream.php" />
+			<file role="php" md5sum="a82e3ace8fa0e5a5befd26129415853c" name="KSC5601/Stream.php" />
 			<file role="php" md5sum="7735a1efcbeb41b7152b53f8b62bd58b" name="KSC5601/UCS2.php" />
 			<file role="php" md5sum="76f954857216048a3626a3860fc27a4a" name="KSC5601/UTF8.php" />
 			<file role="php" md5sum="43575dd2b1e9cb0fb51ec05256cac96b" name="KSC5601/ksc5601.php" />
-			<file role="php" md5sum="20d1838e89784579469181ae8f459cbd" name="KSC5601.php" />
+			<file role="php" md5sum="a802690e7bb4ceb76162ed9d7ffc2683" name="KSC5601.php" />
 		</dir>
 	</contents>
 	<dependencies>
