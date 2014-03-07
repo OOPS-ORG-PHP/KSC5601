@@ -74,18 +74,18 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 		}
 
 		if ( $GLOBALS['table_ksc5601'] ) {
-			$this->ksc   = $GLOBALS['table_ksc5601'];
-			$this->hanja = $GLOBALS['table_ksc5601_hanja'];
-			$this->revs  = $GLOBALS['table_ksc5601_rev'];
+			$this->ksc   = &$GLOBALS['table_ksc5601'];
+			$this->hanja = &$GLOBALS['table_ksc5601_hanja'];
+			$this->revs  = &$GLOBALS['table_ksc5601_rev'];
 		} else {
 			#$t1 = microtime ();
 			require_once 'KSC5601/ksc5601.php';
 			#$t2 = microtime ();
 			#$t = $this->execute_time ($t1, $t2);
 			#printf ("############ INCLUDE CODE FILE (%s sec)\n", $t);
-			$this->ksc   = $table_ksc5601;
-			$this->hanja = $table_ksc5601_hanja;
-			$this->revs  = $table_ksc5601_rev;
+			$this->ksc   = &$table_ksc5601;
+			$this->hanja = &$table_ksc5601_hanja;
+			$this->revs  = &$table_ksc5601_rev;
 		}
 		$this->ksc_max = count ($this->ksc);
 		$this->han_max = count ($this->hanja);
@@ -171,7 +171,7 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 
 		# out of KSX 1001 range in CP949/UHC
 		if ( $this->out_ksx1001 === true ) {
-			if ( $this->is_out_of_ksx1001 ($k1, $k2, true) ) {
+			if ( parent::is_out_of_ksx1001 ($k1, $k2, true) ) {
 				$hex = dechex ($this->ksc2ucs (chr ($k1), chr ($k2)));
 				return '&#x' . strtoupper ($hex) . ';';
 			}

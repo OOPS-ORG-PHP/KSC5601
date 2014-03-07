@@ -82,10 +82,10 @@ class KSC5601_Common
 	 * @param string $str   Given strings.
 	 */
 	function extfunc ($from, $to, $str) {
-		if ( $this->is_iconv () === true )
+		if ( self::is_iconv () === true )
 			return iconv ($from, $to, $str);
 
-		if ( $this->is_mbstring () === true )
+		if ( self::is_mbstring () === true )
 			return mb_convert_encoding ($str, $to, $from);
 
 		return false;

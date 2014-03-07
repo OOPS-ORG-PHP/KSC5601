@@ -37,7 +37,7 @@ require_once 'KSC5601/UTF8.php';
  *
  * @package KSC5601
  */
-Class KSC5601_ext
+Class KSC5601_ext extends KSC5601_UTF8
 {
 	// {{{ properties
 	/**#@+
@@ -101,7 +101,7 @@ Class KSC5601_ext
 	 * @param	boolean Check whether is ascii only or not
 	 */
 	function is_utf8 ($string, $ascii = false) {
-		return KSC5601_UTF8::is_utf8 ($string, $ascii);
+		return parent::is_utf8 ($string, $ascii);
 	}
 	// }}}
 

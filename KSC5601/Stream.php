@@ -38,7 +38,7 @@ class KSC5601_Stream
 	 * @param  boolean (optional) Defaults to false. Set true, return with
 	 *                 decimal strings.
 	 */
-	function chr2hex ($c, $prefix = true, $dec = false) {
+	static function chr2hex ($c, $prefix = true, $dec = false) {
 		$prefix = $prefix ? '0x' : '';
 		if ( $dec === true )
 			$r = ord ($c);
@@ -60,7 +60,7 @@ class KSC5601_Stream
 	 * @return string 1 byte binary character
 	 * @param  string hexical string
 	 */
-	function hex2chr ($c) {
+	static function hex2chr ($c) {
 		return chr (hexdec ($c));
 	}
 	// }}}
@@ -73,7 +73,7 @@ class KSC5601_Stream
 	 * @return Decimal strings
 	 * @param string  1 byte binary character
 	 */
-	function chr2dec ($c) {
+	static function chr2dec ($c) {
 		return ord ($c);
 	}
 	// }}}
@@ -87,7 +87,7 @@ class KSC5601_Stream
 	 * @param string  1 byte binary character
 	 * @param string  (optional) Defaults to empty. shift string with '>> [N]' or '<< [N]'
 	 */
-	function chr2bin ($c, $shift = '') {
+	static function chr2bin ($c, $shift = '') {
 		if ( preg_match ('/^(U\+|0x)/', $c) )
 			$c = self::hex2chr ($c);
 
@@ -125,7 +125,7 @@ class KSC5601_Stream
 	 * @return string  1byte binary character
 	 * @param  string  binary strings
 	 */
-	function bin2chr ($c) {
+	static function bin2chr ($c) {
 		return chr (bindec ($c));
 	}
 	// }}}
@@ -138,7 +138,7 @@ class KSC5601_Stream
 	 * @param string $byte 체크 할 byte
 	 * @return 2진 문자열
 	 */
-	function check2byte ($byte) {
+	static function check2byte ($byte) {
 		return decbin (0x80 >> (8 - $byte));
 	}
 	// }}}
@@ -152,7 +152,7 @@ class KSC5601_Stream
 	 * @param string  Given decimal strings
 	 * @param numeric (optiona) Defaults to 4. number of digit.
 	 */
-	function decbin ($s, $bit = 4) {
+	static function decbin ($s, $bit = 4) {
 		$r = decbin ($s);
 		$l = strlen ($r);
 
@@ -174,7 +174,7 @@ class KSC5601_Stream
 	 * @param boolean (optional) Defaults to false. If type of 1st and 2st arguments
 	 *                is decimal, set true.
 	 */
-	function is_out_of_ksx1001 ($c1, $c2, $is_dec = false) {
+	static function is_out_of_ksx1001 ($c1, $c2, $is_dec = false) {
 		if ( ! $c1 || ! $c2 )
 			return false;
 
@@ -206,7 +206,7 @@ class KSC5601_Stream
 	 * @param array microtime() of starting
 	 * @param array microtime() of ending
 	 */
-	function execute_time ($t1, $t2) {
+	static function execute_time ($t1, $t2) {
 		$start = explode (' ', $t1);
 		$end   = explode (' ', $t2);
 

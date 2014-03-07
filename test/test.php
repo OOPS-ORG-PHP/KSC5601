@@ -1,4 +1,5 @@
 <?php
+error_reporting (E_ALL);
 function mtime($old, $new) {
 	$start = explode(" ", $old);
 	$end = explode(" ", $new);
