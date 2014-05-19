@@ -12,7 +12,7 @@
 		<active>yes</active>
 	</lead>
 	<date>2014-05-19</date>
-	<time>15:14:26</time>
+	<time>15:17:58</time>
 	<version>
 		<release>2.0.6</release>
 		<api>2.0.2</api>
@@ -30,7 +30,7 @@
 			<file role="php" md5sum="6722e728f031139ee2fcd520bb561f11" name="KSC5601/KSC5601_pure.php" />
 			<file role="php" md5sum="d2267dea4680a2932988f5d3814fa544" name="KSC5601/Common.php" />
 			<file role="php" md5sum="a82e3ace8fa0e5a5befd26129415853c" name="KSC5601/Stream.php" />
-			<file role="php" md5sum="471d739c319d7ee7ce1020239f28dc25" name="KSC5601/UCS2.php" />
+			<file role="php" md5sum="559c853691c22fba432d010ecd0ea728" name="KSC5601/UCS2.php" />
 			<file role="php" md5sum="76f954857216048a3626a3860fc27a4a" name="KSC5601/UTF8.php" />
 			<file role="php" md5sum="43575dd2b1e9cb0fb51ec05256cac96b" name="KSC5601/ksc5601.php" />
 			<file role="php" md5sum="a802690e7bb4ceb76162ed9d7ffc2683" name="KSC5601.php" />
