@@ -1,5 +1,5 @@
 <?php
-error_reporting (E_ALL);
+error_reporting (E_ALL & ~E_NOTICE);
 function mtime($old, $new) {
 	$start = explode(" ", $old);
 	$end = explode(" ", $new);
@@ -55,7 +55,6 @@ if ( $obj->is_utf8 ($ksc) )
 	echo "yes\n";
 else
 	echo "no\n";
-exit;
 
 /*
  * Convert EUC-KR(or UHC/CP949) to UTF8

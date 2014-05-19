@@ -73,7 +73,7 @@ Class KSC5601_UCS2 extends KSC5601_Stream
 			return;
 		}
 
-		if ( $GLOBALS['table_ksc5601'] ) {
+		if ( isset ($GLOBALS['table_ksc5601']) ) {
 			$this->ksc   = &$GLOBALS['table_ksc5601'];
 			$this->hanja = &$GLOBALS['table_ksc5601_hanja'];
 			$this->revs  = &$GLOBALS['table_ksc5601_rev'];
